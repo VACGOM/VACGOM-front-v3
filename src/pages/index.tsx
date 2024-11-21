@@ -1,8 +1,12 @@
 import Head from "next/head";
 import Image from "next/image";
+import { useVacBridge } from '@/bridge/VacBridgeProvider';
+import { PATH } from '@/routes/path';
+import { TestNavigation } from '@/pages/TestNavigation';
 
 
 export default function Home() {
+
   return (
     <>
       <Head>
@@ -12,7 +16,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-      
+        루트
+        <TestNavigation />
       </div>
     </>
   );
