@@ -19,6 +19,15 @@ export function TestNavigation() {
       bridge.routeTo(PATH.root, { replace: false });
     }}>루트 (웹뷰, replace: false)
     </button>
+    
+    <button onClick={async () => {
+      const date = await bridge.getDate();
+      console.log(date);
+      
+      alert(date);
+    }}>
+      날짜 입력
+    </button>
   
   </div>;
 }

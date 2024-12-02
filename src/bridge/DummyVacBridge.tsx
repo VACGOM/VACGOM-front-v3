@@ -1,29 +1,28 @@
-import { VacgomAppIpc } from '@/bridge/ipc/vacgomApp/VacgomAppIpc';
-import {
-  ExternalWebviewRouteRequest,
-  RouteGoBackRequest,
-  VacgomAppNativeRouteRequest,
-  WebviewRouteRequest,
-} from '@/bridge/ipc/message/route';
 import { AbstractVacBridge } from '@/bridge/AbstractVacBridge';
+import { Path } from '@/routes/path';
 
 export class DummyVacBridge implements AbstractVacBridge {
   back(): void {
+    history.back();
   }
   
-  pushExternalWebsite(url: string): void {
+  routeTo(path: Path, option: { replace?: boolean; popup?: boolean }): void {
+    location.href = path.path;
   }
   
-  pushNative(route: string): void {
+  async getDate(): Promise<Date> {
+    const str = prompt('Enter date');
+    if (!str) throw new Error('Invalid date');
+    
+    const date = new Date(str);
+    if (isNaN(date.getTime())) throw new Error('Invalid date');
+    
+    return date;
   }
   
-  pushWebview(route: string): void {
+  async getAccessToken(): Promise<string | null> {
+    console.log('getAccessToken');
+    console.log();
+    return process.env.NEXT_PUBLIC_ACCESS_TOKEN ?? null;
   }
-  
-  replaceNative(route: string): void {
-  }
-  
-  replaceWebview(route: string): void {
-  }
-  
 }

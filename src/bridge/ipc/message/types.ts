@@ -6,7 +6,7 @@ export type VacgomIpcMessage<T, D> = {
 export type VacgomIpcMessageWithId<T, D> = VacgomIpcMessage<T, D> & {
   id: string;
 };
-
+    
 export type VacgomIpcMessagePair<R, S> = {
   req: R extends VacgomIpcMessage<infer T, infer D>
     ? VacgomIpcMessage<T, D>

@@ -9,7 +9,7 @@ export const VacBridgeContext = createContext<AbstractVacBridge>(new DummyVacBri
 
 export const useVacBridge = () => {
   const vacBridge = React.useContext(VacBridgeContext);
- 
+  
   return vacBridge;
 };
 
@@ -19,10 +19,8 @@ export const VacBridgeProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   useEffect(() => {
     (async () => {
       const rawIpc = await RawIpcFactory.create();
-      setVacBridge(new VacBridge(new VacgomAppIpc(rawIpc)));
+      if (rawIpc) setVacBridge(new VacBridge(new VacgomAppIpc(rawIpc)));
     })();
-    
-    
   }, []);
   
   return (

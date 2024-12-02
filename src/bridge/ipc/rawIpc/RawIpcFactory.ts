@@ -1,13 +1,11 @@
 import { AbstractRawIpc } from '@/bridge/ipc/rawIpc/AbstractRawIpc';
 import { FlutterWebviewIpc } from '@/bridge/ipc/rawIpc/flutter/FlutterWebviewIpc';
-import { TestingRawIpc } from '@/bridge/ipc/rawIpc/testing/TestingRawIpc';
 
 export class RawIpcFactory {
-  static async create(): Promise<AbstractRawIpc> {
+  static async create(): Promise<AbstractRawIpc | null> {
     console.log('create called');
     try {
       const flutterWebviewIpc = await retry(3, () => {
-        console.log('truing..');
         return new FlutterWebviewIpc();
       });
       
@@ -15,7 +13,7 @@ export class RawIpcFactory {
       
     } catch (error) {
       console.error('Failed to create FlutterWebviewIpc', error);
-      return new TestingRawIpc();
+      return null;
     }
   }
   

@@ -1220,6 +1220,11 @@
     prop-types "^15.8.1"
     react-is "^18.3.1"
 
+"@next/env@^15.0.3":
+  version "15.0.3"
+  resolved "https://registry.npmjs.org/@next/env/-/env-15.0.3.tgz"
+  integrity sha512-t9Xy32pjNOvVn2AS+Utt6VmyrshbpfUMhIjFO60gI58deSo/KgLOp31XZ4O+kY/Is8WAGYwA5gR7kOb1eORDBA==
+
 "@next/env@14.2.17":
   version "14.2.17"
   resolved "https://registry.npmjs.org/@next/env/-/env-14.2.17.tgz"
