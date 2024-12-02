@@ -9,7 +9,7 @@ import {
   WithId,
 } from '../message';
 import { AbstractRawIpc } from '@/bridge/ipc/rawIpc/AbstractRawIpc';
-import { InternalListener } from '@/bridge/ipc/rawIpc/flutter/FlutterWebviewIpc';
+import { InternalListener } from '@/bridge/ipc/rawIpc/FlutterWebviewIpc';
 
 export class VacgomAppIpc {
   private messages: Record<string, IpcMessageHandler<any>> = {};
@@ -28,7 +28,7 @@ export class VacgomAppIpc {
   
   async send<T>(message: T): Promise<void> {
     const data = JSON.stringify(message);
-    console.log(`[VacgomAppIpc] 전송 ${data}`);
+    console.log(`${data}`);
     this.rawIpc.send(data);
   }
   
@@ -47,9 +47,7 @@ export class VacgomAppIpc {
       
       this.rawIpc.send(JSON.stringify(identifiedMessage));
       
-      console.log(
-        `[VacgomAppIpc] async invoke (${id})\n${JSON.stringify(identifiedMessage)}\n`,
-      );
+      console.log(`invoke (${id})\n${JSON.stringify(identifiedMessage)}`);
     });
   }
   
@@ -72,15 +70,13 @@ export class VacgomAppIpc {
       this.messages[message.id](message);
       delete this.messages[message.id];
       
-      console.log(
-        `[VacgomAppIpc] 응답 수신 (${message.id})\n${JSON.stringify(message)}\n`,
-      );
+      console.log(`(${message.id})\n${JSON.stringify(message)}\n`);
     }
   }
   
   private getInternalListener<M>(handle: MessageListener<M>): InternalListener {
     return (message: string) => {
-      console.log(`[VacgomAppIpc] 수신 ${JSON.parse(message)}`);
+      console.log(`${JSON.parse(message)}`);
       return handle(JSON.parse(message));
     };
   }
