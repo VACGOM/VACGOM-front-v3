@@ -1,8 +1,11 @@
-import Head from "next/head";
-import Image from "next/image";
+import Head from 'next/head';
+import { TestNavigation } from '@/pages/TestNavigation';
+import { useAccessToken } from '@/bridge/hooks/useAccessToken';
 
 
 export default function Home() {
+  
+  const accessToken = useAccessToken();
   return (
     <>
       <Head>
@@ -12,7 +15,9 @@ export default function Home() {
         <link rel="icon" href="/svg/favicon.svg" />
       </Head>
       <div>
-      
+        루트
+        {accessToken && <div>accessToken: {accessToken}</div>}
+        <TestNavigation />
       </div>
     </>
   );
