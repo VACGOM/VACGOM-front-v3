@@ -8,4 +8,6 @@ export interface AbstractVacBridge {
   getDate(): Promise<Date>;
   
   getAccessToken(): Promise<string | null>;
+  
+  getRegisterToken(): Promise<string | null>;
 }

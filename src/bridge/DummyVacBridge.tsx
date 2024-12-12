@@ -25,4 +25,9 @@ export class DummyVacBridge implements AbstractVacBridge {
     console.log();
     return process.env.NEXT_PUBLIC_ACCESS_TOKEN ?? null;
   }
+  
+  async getRegisterToken(): Promise<string | null> {
+    console.log('getRegisterToken');
+    return process.env.NEXT_PUBLIC_REGISTER_TOKEN ?? null;
+  }
 }
