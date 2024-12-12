@@ -6,6 +6,11 @@ export function TestNavigation() {
   
   return <div>
     <button onClick={() => {
+      bridge.back();
+    }}>뒤로가기
+    </button>
+    
+    <button onClick={() => {
       bridge.routeTo(PATH.NOTION_TERMS, { popup: true });
     }}>노션 (외부 사이트)
     </button>

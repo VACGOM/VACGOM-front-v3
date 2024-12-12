@@ -24,7 +24,7 @@ export class FlutterWebviewIpc implements AbstractRawIpc {
     if (!flutterCallHandler) throw new Error('백곰 앱과 연결할 수 없습니다.');
     
     this.postMessageToFlutter = (message: string) => {
-      flutterCallHandler('message', message);
+      flutterCallHandler('ipc', message);
     };
     
     window.webviewPostMessage = (message: string) => {

@@ -64,6 +64,7 @@ export class VacgomAppIpc {
   }
   
   private listenAsyncResponse(message: VacgomIpcMessageWithId<never, never>) {
+    console.log(`listenAsyncResponse\n${JSON.stringify(message)}`);
     if (!message.id) return;
     
     if (this.messages[message.id]) {
