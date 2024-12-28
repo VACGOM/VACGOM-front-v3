@@ -1,12 +1,11 @@
 import type { AppProps } from 'next/app';
 import Script from 'next/script';
 import 'react-tooltip/dist/react-tooltip.css';
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { PATH } from '@/routes/path';
 import { VacBridgeProvider } from '@/bridge/VacBridgeProvider';
-import { Global } from '@emotion/react';
+import { Global, ThemeProvider } from '@emotion/react';
 import GlobalStyle from '@/styles/globalStyles';
+import { theme } from '@/styles/theme';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter(); // Initialize router
@@ -29,8 +28,10 @@ function MyApp({ Component, pageProps }: AppProps) {
         src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_MAP_KEY}`}
       ></Script>
       <VacBridgeProvider>
-        <Global styles={GlobalStyle} />
-        <Component {...pageProps} />
+        <ThemeProvider theme={theme}>
+          <Global styles={GlobalStyle} />
+          <Component {...pageProps} />
+        </ThemeProvider>
       </VacBridgeProvider>
     </>
   );
