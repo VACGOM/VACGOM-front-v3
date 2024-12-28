@@ -32,198 +32,208 @@ const colors = {
 const fonts = {
 	// Display
 	display1: css`
-    font-size: 6rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 7.5rem;
-    letter-spacing: -0.15rem;
-  `,
+		font-size: 3.5rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 4.5rem; /* 128.571% */
+		letter-spacing: -0.0875rem;
+	`,
 	display2: css`
-    font-size: 4.5rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 5.5rem;
-    letter-spacing: -0.09rem;
-  `,
+		font-size: 3rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 3.875rem; /* 129.167% */
+		letter-spacing: -0.075rem;
+	`,
 	display3: css`
-    font-size: 3.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 4.5rem;
-    letter-spacing: -0.06563rem;
-  `,
+		font-size: 2.5rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 3.25rem; /* 130% */
+		letter-spacing: -0.0625rem;
+	`,
 	display4: css`
-    font-size: 3rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 3.75rem;
-    letter-spacing: -0.045rem;
-  `,
+		font-size: 2.25rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 2.75rem; /* 122.222% */
+		letter-spacing: -0.05625rem;
+	`,
 	display5: css`
-    font-size: 2.25rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.75rem;
-    letter-spacing: -0.02813rem;
-  `,
+		font-size: 2rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 2.625rem; /* 131.25% */
+		letter-spacing: -0.05rem;
+	`,
 	display6: css`
-    font-size: 1.875rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.375rem;
-    letter-spacing: -0.01875rem;
-  `,
+		font-size: 1.75rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 2.375rem; /* 135.714% */
+		letter-spacing: -0.04375rem;
+	`,
 	
 	// Headline
 	headline1: css`
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.5rem;
-    letter-spacing: -0.02rem;
-  `,
+		font-size: 2rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 2.625rem; /* 131.25% */
+		letter-spacing: -0.05rem;
+	`,
 	headline2: css`
-    font-size: 1.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.25rem;
-    letter-spacing: -0.01313rem;
-  `,
+		font-size: 1.75rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 2.375rem; /* 135.714% */
+		letter-spacing: -0.04375rem;
+	`,
 	headline3: css`
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2rem;
-    letter-spacing: -0.0075rem;
-  `,
+		font-size: 1.5rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 2.125rem; /* 141.667% */
+		letter-spacing: -0.0375rem;
+	`,
 	headline4: css`
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.75rem;
-    letter-spacing: 0;
-  `,
+		font-size: 1.25rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 1.75rem; /* 140% */
+		letter-spacing: -0.03125rem;
+	`,
 	headline5: css`
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.5rem;
-    letter-spacing: 0;
-  `,
+		font-size: 1.125rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 1.625rem; /* 144.444% */
+		letter-spacing: -0.02813rem;
+	`,
 	headline6: css`
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.375rem;
-  `,
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 700;
+		line-height: 1.5rem; /* 150% */
+		letter-spacing: -0.025rem;
+	`,
 	
 	// Title
 	title1: css`
-    font-size: 2rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.625rem;
-    letter-spacing: -0.05rem;
-  `,
+		font-size: 1.5rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 2.125rem; /* 141.667% */
+		letter-spacing: -0.0375rem;
+	`,
 	title2: css`
-    font-size: 1.75rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.375rem;
-    letter-spacing: -0.04375rem;
-  `,
+		font-size: 1.25rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.75rem; /* 140% */
+		letter-spacing: -0.03125rem;
+	`,
 	title3: css`
-    font-size: 1.5rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 2.125rem;
-    letter-spacing: -0.0375rem;
-  `,
+		font-size: 1.125rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.625rem; /* 144.444% */
+		letter-spacing: -0.02813rem;
+	`,
 	title4: css`
-    font-size: 1.25rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.75rem;
-    letter-spacing: -0.03125rem;
-  `,
-	title5: css`
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.625rem;
-    letter-spacing: -0.02813rem;
-  `,
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.5rem; /* 150% */
+		letter-spacing: -0.025rem;
+	`,
 	
 	// Body
 	body1: css`
-    font-size: 1.125rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.625rem;
-  `,
+		font-size: 1.125rem;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.625rem; /* 144.444% */
+		letter-spacing: -0.02813rem;
+	`,
 	body2: css`
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5rem;
-  `,
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.5rem; /* 150% */
+		letter-spacing: -0.025rem;
+	`,
 	body3: css`
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.25rem;
-  `,
-	
+		font-size: 0.875rem;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.25rem; /* 142.857% */
+		letter-spacing: -0.02188rem;
+	`,
+	body4: css`
+		font-size: 0.8125rem;
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.125rem; /* 138.462% */
+		letter-spacing: -0.02031rem;
+	`,
 	// Caption
 	caption1: css`
-    font-size: 0.8125rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.125rem;
-    letter-spacing: -0.02031rem;
-  `,
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 1.5rem; /* 150% */
+		letter-spacing: -0.025rem;
+	`,
 	caption2: css`
-    font-size: 0.75rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.125rem;
-    letter-spacing: -0.01875rem;
-  `,
+		font-size: 0.875rem;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 1.25rem; /* 142.857% */
+		letter-spacing: -0.02188rem;
+	`,
 	caption3: css`
-    font-size: 0.6875rem;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1rem;
-    letter-spacing: -0.01719rem;
-  `,
+		font-size: 0.8125rem;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 1.125rem; /* 138.462% */
+		letter-spacing: -0.02031rem;
+	`,
+	caption4: css`
+		font-size: 0.75rem;
+		font-style: normal;
+		font-weight: 500;
+		line-height: 1.125rem; /* 150% */
+		letter-spacing: -0.01875rem;
+	`,
 	
 	// Button
 	button1: css`
-    font-size: 1rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.5rem;
-    letter-spacing: -0.025rem;
-  `,
+		font-size: 1rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.5rem; /* 150% */
+		letter-spacing: -0.025rem;
+	`,
 	button2: css`
-    font-size: 0.875rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.25rem;
-    letter-spacing: -0.02188rem;
-  `,
+		font-size: 0.875rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.25rem; /* 142.857% */
+		letter-spacing: -0.02188rem;
+	`,
 	button3: css`
-    font-size: 0.8125rem;
-    font-style: normal;
-    font-weight: 600;
-    line-height: 1.125rem;
-    letter-spacing: -0.02031rem;
-  `,
+		font-size: 0.8125rem;
+		font-style: normal;
+		font-weight: 600;
+		line-height: 1.125rem; /* 138.462% */
+		letter-spacing: -0.02031rem;
+	`,
 	button4: css`
     font-size: 0.75rem;
     font-style: normal;
     font-weight: 600;
-    line-height: 1.125rem;
+    line-height: 1.125rem; /* 150% */
     letter-spacing: -0.01875rem;
   `,
 };
