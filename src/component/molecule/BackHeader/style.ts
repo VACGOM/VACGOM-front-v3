@@ -1,6 +1,7 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
 import { Colors, fontGenerator } from '@/styles';
+import { theme } from '@/styles/theme';
 
 export const HeaderContainer = styled.header`
   display: flex;
@@ -17,18 +18,14 @@ export const HeaderContainer = styled.header`
     margin-right: 7px;
   }
     & > svg {
-        width: 2rem;
+        width: 2.4rem;
     }
 `;
 
 export const Title = styled.h1`
   width: 100%;
   margin-right: 24px;
-  font-family: 'Pretendard', sans-serif;
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 24px;
-  letter-spacing: 0px;
   text-align: center;
   color: #333d4b;
+  ${theme.fonts.title2}
 `;
