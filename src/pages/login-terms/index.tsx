@@ -4,7 +4,7 @@ import JoinTemplate from '@/component/molecule/JoinTemplate';
 import { useState } from 'react';
 import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import TermsAllAgree from '@/component/molecule/TermsAllAgree';
-import { TermsBody } from '@/pages/login/terms/style';
+import { TermsBody } from '@/pages/login-terms/style';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
 import { useRouter } from 'next/navigation';

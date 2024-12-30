@@ -13,8 +13,25 @@ export interface ButtonType {
   prevIcon?: React.ReactNode;
   icon?: React.ReactNode;
   iconSize?: string;
-  variant?: string;
-  size?: string;
+  variant?:
+    | 'default'
+    | 'Primary'
+    | 'Secondary'
+    | 'OutlineWhite'
+    | 'Disabled'
+    | 'kakao'
+    | 'UnSelect'
+    | 'Select';
+  size?:
+    | 'default'
+    | 'small'
+    | 'medium'
+    | 'large'
+    | 'bottombutton'
+    | 'modal'
+    | 'xsmall'
+    | 'kakao'
+    | 'refresh';
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
   disabled?: boolean;
 }
@@ -37,7 +54,7 @@ function Button({
   label = '버튼',
   icon,
   prevIcon,
-  variant = 'primary',
+  variant = 'Primary',
   size = 'medium',
   disabled = false,
   onClick = (e: MouseEvent<HTMLButtonElement>) => {},

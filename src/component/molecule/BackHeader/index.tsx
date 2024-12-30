@@ -2,8 +2,16 @@
 import React from 'react';
 import { HeaderContainer, Title } from './style';
 import { useRouter } from 'next/navigation';
-import { BackHeaderType } from '@/types/moleculeTypes';
 import { IcoArrowLeft } from '@/assets/svg';
+
+export interface BackHeaderType {
+  title?: string;
+  url?: string;
+  counter?: number;
+  color?: 'black' | 'white';
+  isIcon?: boolean;
+  onClickHandler?: React.MouseEventHandler<HTMLSpanElement>;
+}
 
 const BackHeader: React.FC<BackHeaderType> = ({
   title,
@@ -17,12 +25,15 @@ const BackHeader: React.FC<BackHeaderType> = ({
   return (
     <HeaderContainer>
       {isIcon && (
-        <IcoArrowLeft onChange={() => {
-          if (url != null) {
-            router.push(url);
-          }
-          onClickHandler && onClickHandler();
-        }}
+        <IcoArrowLeft
+          onChange={() => {
+            if (url != null) {
+              router.push(url);
+            }
+            if (onClickHandler) {
+              onClickHandler();
+            }
+          }}
         />
       )}
 
