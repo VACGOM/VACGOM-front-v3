@@ -8,7 +8,6 @@ export const TermsDetailContainer = styled.section``;
 export const TemrsDetail = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 35.3rem;
   padding: 1rem 0px;
   align-items: center;
   gap: 0.6rem;
