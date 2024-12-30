@@ -6,9 +6,9 @@ export enum PathType {
 export type Path = {
   path: string;
   type: PathType;
-}
+};
 
-export const PATH = {
+export const webviewPATH = {
   root: {
     path: '/',
     type: PathType.webview,
@@ -18,8 +18,16 @@ export const PATH = {
     type: PathType.webview,
   },
   //notion
-  NOTION_TERMS:{
+  NOTION_TERMS: {
     path: 'https://www.notion.so/been2spring/f17c3687e1f24279a76e9797a51677f6',
     type: PathType.external,
   },
+};
+
+export const PATH = {
+  root: '/',
+  HOME: '/home',
+  login: '/login',
+  login_term: '/login/term',
+  login_type: '/login-type',
 };

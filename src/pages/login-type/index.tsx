@@ -4,12 +4,15 @@ import JoinTemplate from '@/component/molecule/JoinTemplate';
 import { useState } from 'react';
 import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import TermsAllAgree from '@/component/molecule/TermsAllAgree';
+import Button from '@/component/atom/button/button';
 import { TermsBody } from '@/pages/login/terms/style';
+import { TermsContents } from '@/component/molecule/TermsAllAgree/style';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
 import { useRouter } from 'next/navigation';
 
 export default function Terms() {
+  const bridge = useVacBridge();
   const router = useRouter();
 
   const [params, setParams] = useState<ParamsType>({
@@ -40,7 +43,7 @@ export default function Terms() {
         <BottomButtonProvider
           label={'다음'}
           isActive={params.terms}
-          disabled={!params.terms}
+          disabled={params.terms}
           onClick={() => {
             router.push(PATH.login_type);
           }}
