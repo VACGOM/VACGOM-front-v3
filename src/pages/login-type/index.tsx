@@ -40,7 +40,7 @@ export default function SignupDone(): React.JSX.Element {
               width: 100%;
             `}
             onClick={() => {
-              // router.push(PATH.LOGIN);
+              router.push(PATH.invite);
             }}
           />
           <Button
@@ -50,7 +50,7 @@ export default function SignupDone(): React.JSX.Element {
               width: 100%;
             `}
             onClick={() => {
-              // router.push(PATH.LOGIN);
+              router.push(PATH.info);
             }}
           />
         </LoginTypeBottom>

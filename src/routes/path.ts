@@ -30,4 +30,6 @@ export const PATH = {
   login: '/login',
   login_term: '/login-terms',
   login_type: '/login-type',
+  invite: '/invite',
+  info: '/info',
 };
