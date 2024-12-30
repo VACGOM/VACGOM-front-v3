@@ -6,3 +6,4 @@ export { default as IcoCheckGray } from './IcoCheckGray';
 export { default as IcoCheckboxSelectedEnabled } from './IcoCheckboxSelectedEnabled';
 export { default as IcoCheckboxUnselectedEnabled } from './IcoCheckboxUnselectedEnabled';
 export { default as IcoChevron } from './IcoChevron';
+export { default as IcoVacFrame1 } from './IcoVacFrame1';

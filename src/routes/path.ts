@@ -28,6 +28,8 @@ export const PATH = {
   root: '/',
   HOME: '/home',
   login: '/login',
-  login_term: '/login/term',
+  login_term: '/login-terms',
   login_type: '/login-type',
+  invite: '/invite',
+  info: '/info',
 };

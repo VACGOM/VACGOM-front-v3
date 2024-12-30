@@ -74,7 +74,7 @@ export const ButtonSizes: CssArchiveType = {
     ${theme.fonts.button2};
     padding: 0 2rem;
     width: 100%;
-    height: 6.4rem;
+    height: 5.6rem;
   `,
   bottombutton: css`
     ${theme.fonts.button1};
@@ -115,7 +115,6 @@ export const ButtonSizes: CssArchiveType = {
   refresh: css`
     padding: 8px 16px;
   `,
-  half: css``,
 };
 
 export const ButtonContent = styled.button<ButtonStyleType>`

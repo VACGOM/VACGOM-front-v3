@@ -1,54 +1,60 @@
-import { useVacBridge } from '@/bridge/VacBridgeProvider';
-import BackHeader from '@/component/molecule/BackHeader';
-import JoinTemplate from '@/component/molecule/JoinTemplate';
-import { useState } from 'react';
-import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
-import TermsAllAgree from '@/component/molecule/TermsAllAgree';
-import Button from '@/component/atom/button/button';
-import { TermsBody } from '@/pages/login/terms/style';
-import { TermsContents } from '@/component/molecule/TermsAllAgree/style';
-import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
-import { PATH } from '@/routes/path';
+'use client';
+
+import * as React from 'react';
+import {
+  LoginTypeBody,
+  LoginTypeBottom,
+  LoginTypePadding,
+  LoginTypeTop,
+  LoginTypeWrap,
+} from './style';
+import { css } from '@emotion/react';
 import { useRouter } from 'next/navigation';
+import { PATH } from '@/routes/path';
+import BackHeader from '@/component/molecule/BackHeader';
+import Button from '@/component/atom/button/button';
+import { useVacBridge } from '@/bridge/VacBridgeProvider';
+import { IcoVacFrame1 } from '@/assets/svg';
 
-export default function Terms() {
-  const bridge = useVacBridge();
+export default function SignupDone(): React.JSX.Element {
   const router = useRouter();
-
-  const [params, setParams] = useState<ParamsType>({
-    terms: false,
-  });
-
-  const onChangeValue: OnChangeValueType = (field, value) => {
-    setParams((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
+  const bridge = useVacBridge();
 
   return (
-    <>
-      <BackHeader title={'약관동의'} />
-      <TermsBody>
-        <JoinTemplate
-          title={'서비스 이용을 위해'}
-          titleBottom={'이용약관 동의가 필요해요.'}
-          subTop={'약관에 동의해야 정상적으로 서비스를 이용할 수 있어요.'}
-          oneLabel={'네, 모두 동의합니다.'}
-          params={params}
-          field={'terms'}
-          onChangeValue={onChangeValue}
-        />
-        <TermsAllAgree selected={params.terms} />
-        <BottomButtonProvider
-          label={'다음'}
-          isActive={params.terms}
-          disabled={params.terms}
-          onClick={() => {
-            router.push(PATH.login_type);
-          }}
-        />
-      </TermsBody>
-    </>
+    <LoginTypeWrap>
+      <BackHeader onClickHandler={bridge.back} />
+      <LoginTypePadding>
+        <LoginTypeTop>
+          아이를 등록한 후 <br />
+          백곰을 시작해 보세요!
+        </LoginTypeTop>
+        <LoginTypeBody>
+          <IcoVacFrame1 />
+        </LoginTypeBody>
+        <LoginTypeBottom>
+          <Button
+            label={'초대 코드로 연결하기'}
+            variant={'OutlineWhite'}
+            size={'large'}
+            customStyle={css`
+              width: 100%;
+            `}
+            onClick={() => {
+              router.push(PATH.invite);
+            }}
+          />
+          <Button
+            label={'아이 정보 입력하기'}
+            size={'large'}
+            customStyle={css`
+              width: 100%;
+            `}
+            onClick={() => {
+              router.push(PATH.info);
+            }}
+          />
+        </LoginTypeBottom>
+      </LoginTypePadding>
+    </LoginTypeWrap>
   );
 }
