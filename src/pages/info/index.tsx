@@ -3,9 +3,14 @@ import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
 import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import { useRouter } from 'next/navigation';
-import { HeadlineTitle, InputWrap } from '@/pages/invite/style';
+import {
+  HeadlineSubTitle,
+  HeadlineTitle,
+  InputWrap,
+} from '@/pages/invite/style';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
+import { IcoAddBlue } from '@/assets/svg';
 
 export default function Terms() {
   const router = useRouter();
@@ -26,13 +31,22 @@ export default function Terms() {
     <>
       <BackHeader onClickHandler={bridge.back} />
       <HeadlineTitle>우리 아이 정보를 입력해 주세요</HeadlineTitle>
+      <HeadlineSubTitle>초대 코드를 입력해 주세요</HeadlineSubTitle>
+
       <InputWrap>
         <BottomButtonProvider
           label={'다음'}
           isActive={params.inviteCode}
           disabled={!params.inviteCode}
           onClick={() => {
-            router.push(PATH.invite_confirm);
+            // 브릿지 연결
+          }}
+          twoButtonLabel={'아이 추가하기'}
+          twoButtonVariant={'BabyAdd'}
+          twoButton={true}
+          twoButtonPrevIcon={<IcoAddBlue />}
+          onTwoButtonClick={() => {
+            // 아이 추가 로직
           }}
         />
       </InputWrap>

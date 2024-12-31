@@ -3,7 +3,11 @@ import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
 import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import { useRouter } from 'next/navigation';
-import { HeadlineTitle, InputWrap } from '@/pages/invite/style';
+import {
+  HeadlineSubTitle,
+  HeadlineTitle,
+  InputWrap,
+} from '@/pages/invite/style';
 import InputForm from '@/component/atom/InputForm';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';

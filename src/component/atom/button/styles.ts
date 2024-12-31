@@ -60,6 +60,11 @@ export const ButtonStyles: CssArchiveType = {
     background-color: ${Colors.PrimaryLight};
     color: ${Colors.Black};
   `,
+  BabyAdd: css`
+    background-color: ${Colors.White};
+    border: 1px dashed ${Colors.Primary};
+    color: ${Colors.Primary};
+  `,
 };
 
 export const ButtonSizes: CssArchiveType = {
