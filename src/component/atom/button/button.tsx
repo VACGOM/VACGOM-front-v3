@@ -22,7 +22,8 @@ export interface ButtonType {
     | 'kakao'
     | 'UnSelect'
     | 'Select'
-    | 'BabyAdd';
+    | 'BabyAdd'
+    | 'Line_Gray';
   size?:
     | 'default'
     | 'small'

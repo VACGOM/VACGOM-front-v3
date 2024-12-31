@@ -40,15 +40,11 @@ export interface InputFormType {
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
-  leftIcon?: string;
-  rightIcon?: string;
-  iconSize?: string;
-  onClickLeftIcon?: (event: React.MouseEvent<HTMLSpanElement>) => void;
-  onClickRightIcon?: (event: React.MouseEvent<HTMLSpanElement>) => void;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   description?: string;
   descriptionTop?: string;
   customStyle?: any;
-  className?: string;
   size?: string;
   variant?: string;
   children?: React.ReactNode;
@@ -71,11 +67,12 @@ const Index = ({
   description,
   descriptionTop,
   customStyle = css``,
-  className,
   size = '',
   variant = '',
   children,
   autoComplete = 'one-time-code',
+  leftIcon,
+  rightIcon,
 }: React.PropsWithChildren<InputFormType>) => {
   const [isInputFilled, setInputFilled] = useState(false);
 
@@ -88,7 +85,6 @@ const Index = ({
 
   return (
     <InputWrapper
-      className={className}
       customStyle={customStyle}
       size={size}
       variant={variantValue}
@@ -98,6 +94,11 @@ const Index = ({
         <div className="input-form__description-top">{descriptionTop}</div>
       )}
       <div className="input__content">
+        {leftIcon && (
+          <span className="common-icon input__content--left__icon">
+            {leftIcon}
+          </span>
+        )}
         <input
           className="input__content--input"
           id={id}
@@ -114,6 +115,12 @@ const Index = ({
           onBlur={handleBlur}
           autoComplete={autoComplete}
         />
+        {rightIcon && (
+          <span className="common-icon input__content--right__icon">
+            {rightIcon}
+          </span>
+        )}
+
         {children}
       </div>
       {description && (

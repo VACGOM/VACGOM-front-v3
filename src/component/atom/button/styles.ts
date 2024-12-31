@@ -65,6 +65,17 @@ export const ButtonStyles: CssArchiveType = {
     border: 1px dashed ${Colors.Primary};
     color: ${Colors.Primary};
   `,
+  Line_Gray: css`
+    ${theme.fonts.button1};
+    border: 1px solid ${Colors.Gray200};
+    background-color: ${Colors.White};
+    color: ${Colors.Black};
+    &:hover {
+      background-color: ${Colors.PrimaryLight};
+      color: ${Colors.Primary};
+      border: none;
+    }
+  `,
 };
 
 export const ButtonSizes: CssArchiveType = {

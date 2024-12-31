@@ -27,14 +27,14 @@ export const InputFormSizes: CssArchiveType = {
       //왼쪽에 아이콘 존재시
       &:has(span.input__content--left__icon) {
         & > input.input__content--input {
-          padding-left: 4rem;
+          padding-left: 4.6rem;
         }
       }
 
       //오른쪽에 아이콘 존재시
       &:has(span.input__content--right__icon) {
         & > input.input__content--input {
-          padding-right: 4rem;
+          padding-right: 4.6rem;
         }
       }
 
@@ -43,11 +43,13 @@ export const InputFormSizes: CssArchiveType = {
 
         &.input__content--left__icon {
           left: 1.6rem;
+          width: 2.1rem;
           transform: translate(0%, 70%);
         }
 
         &.input__content--right__icon {
           right: 1.6rem;
+          width: 2.1rem;
           transform: translate(0%, 70%);
         }
       }
