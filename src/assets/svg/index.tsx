@@ -1,4 +1,5 @@
 export { default as Favicon } from './Favicon';
+export { default as IcoAddBlue } from './IcoAddBlue';
 export { default as IcoArrowLeft } from './IcoArrowLeft';
 export { default as IcoArrowLeftWhite } from './IcoArrowLeftWhite';
 export { default as IcoCheckBlue } from './IcoCheckBlue';
