@@ -1,4 +1,6 @@
 export { default as Favicon } from './Favicon';
+export { default as IcoProfileNull } from './IcoProfileNull';
+export { default as IcoProfileEdit } from './IcoProfileEdit';
 export { default as IcoAddBlue } from './IcoAddBlue';
 export { default as IcoArrowLeft } from './IcoArrowLeft';
 export { default as IcoArrowLeftWhite } from './IcoArrowLeftWhite';

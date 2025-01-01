@@ -23,7 +23,8 @@ export interface ButtonType {
     | 'UnSelect'
     | 'Select'
     | 'BabyAdd'
-    | 'Line_Gray';
+    | 'Line_Gray'
+    | 'Line_Gray_Select';
   size?:
     | 'default'
     | 'small'

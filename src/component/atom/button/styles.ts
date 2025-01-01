@@ -76,6 +76,11 @@ export const ButtonStyles: CssArchiveType = {
       border: none;
     }
   `,
+  Line_Gray_Select: css`
+    background-color: ${Colors.PrimaryLight};
+    color: ${Colors.Primary};
+    border: none;
+  `,
 };
 
 export const ButtonSizes: CssArchiveType = {

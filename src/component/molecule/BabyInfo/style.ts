@@ -13,17 +13,12 @@ export const BabyInfoContainer = styled.header`
   margin: 2rem;
   padding: 2.4rem;
 
-  /* Z/8 */
   box-shadow: 0px 8px 16px 0px rgba(145, 158, 171, 0.16);
 
   & > .counter {
     ${fontGenerator('16px', '400', '26px')}
     color: ${Colors.Gray600};
     margin-right: 7px;
-  }
-  & > svg {
-    width: 2.4rem;
-    justify-self: start;
   }
 
   & > .profile-upload {
@@ -35,6 +30,20 @@ export const BabyInfoValue = styled.div`
   display: flex;
   gap: 0.8rem;
   flex-direction: column;
+`;
+
+export const IcoProfileWrap = styled.div`
+  position: relative;
+  & > .profile-upload {
+    width: 10rem;
+  }
+
+  & > .profile-edit {
+    position: absolute;
+    bottom: 0;
+    right: 20rem;
+    width: 3rem;
+  }
 `;
 
 export const SexSelectWrap = styled.div`

@@ -1,7 +1,6 @@
 import { useVacBridge } from '@/bridge/VacBridgeProvider';
 import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
-import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import { useRouter } from 'next/navigation';
 import {
   HeadlineSubTitle,
@@ -17,15 +16,42 @@ export default function Terms() {
   const router = useRouter();
   const bridge = useVacBridge();
 
-  const [params, setParams] = useState<ParamsType>({
-    inviteCode: '',
-  });
+  const [params, setParams] = useState<BabyInfoParamsType[]>([
+    {
+      id: 1,
+      inviteCode: '',
+      babyName: '',
+      sex: '',
+      birthday: '',
+      profileImage: null,
+    },
+  ]);
 
-  const onChangeValue: OnChangeValueType = (field, value) => {
-    setParams((prevState) => ({
+  const addBabyInfo = () => {
+    setParams((prevState) => [
       ...prevState,
-      [field]: value,
-    }));
+      {
+        id: prevState.length + 1, // 새로운 ID
+        inviteCode: '',
+        babyName: '',
+        sex: '',
+        birthday: '',
+        profileImage: null, // 새 이미지 필드
+      },
+    ]);
+  };
+
+  const onChangeValue = (id: number, field: string, value: string | File) => {
+    setParams((prevState) =>
+      prevState.map((baby) =>
+        baby.id === id
+          ? {
+              ...baby,
+              [field]: value,
+            }
+          : baby,
+      ),
+    );
   };
 
   return (
@@ -33,13 +59,16 @@ export default function Terms() {
       <BackHeader onClickHandler={bridge.back} />
       <HeadlineTitle>우리 아이 정보를 입력해 주세요</HeadlineTitle>
       <HeadlineSubTitle>초대 코드를 입력해 주세요</HeadlineSubTitle>
-      <BabyInfo
-        params={params}
-        onChangeValue={onChangeValue}
-        onClickDate={() => {
-          // 브릿지 연결
-        }}
-      />
+      {params.map((body) => (
+        <BabyInfo
+          key={body.id}
+          params={body}
+          onChangeValue={(field, value) => onChangeValue(body.id, field, value)}
+          onClickDate={() => {
+            // 브릿지 연결
+          }}
+        />
+      ))}
       <InputWrap>
         <BottomButtonProvider
           label={'다음'}
@@ -52,9 +81,7 @@ export default function Terms() {
           twoButtonVariant={'BabyAdd'}
           twoButton={true}
           twoButtonPrevIcon={<IcoAddBlue />}
-          onTwoButtonClick={() => {
-            // 아이 추가 로직
-          }}
+          onTwoButtonClick={addBabyInfo}
         />
       </InputWrap>
     </>
