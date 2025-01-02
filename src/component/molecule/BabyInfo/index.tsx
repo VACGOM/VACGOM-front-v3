@@ -17,7 +17,7 @@ import Image from 'next/image';
 export interface BabyInfoType {
   params: BabyInfoParamsType;
   onClickDate?: () => void;
-  onChangeValue: (field: string, value: string) => void;
+  onChangeValue: (field: string, value: string | File) => void;
 }
 
 const BabyInfo: React.FC<BabyInfoType> = ({
@@ -31,10 +31,19 @@ const BabyInfo: React.FC<BabyInfoType> = ({
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
+    setProfileImage(URL.createObjectURL(file));
+
     if (file) {
       const formData = new FormData();
       formData.append('image', file);
-      // uploadImage(formData);
+      console.log('formData', formData);
+      uploadImage(formData);
+    }
+  };
+
+  const handleProfileClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
     }
   };
 
@@ -42,9 +51,9 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     onSuccess: (response) => {
       // 서버에서 반환된 이미지 URL로 상태 업데이트
       const uploadedImageUrl = response.imageUrl;
-      if (uploadedImageUrl) {
-        setProfileImage(uploadedImageUrl);
-      }
+      console.log('uploadedImageUrl', uploadedImageUrl);
+      setProfileImage(uploadedImageUrl);
+      onChangeValue('profileImage', uploadedImageUrl);
       alert('이미지가 성공적으로 업로드되었습니다.');
     },
     onError: (error) => {
@@ -53,17 +62,11 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     },
   });
 
-  const handleProfileClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click();
-    }
-  };
-
   return (
     <BabyInfoContainer>
       <IcoProfileWrap
         onClick={() => {
-          // handleProfileClick();
+          handleProfileClick();
         }}
       >
         {profileImage ? (
@@ -78,10 +81,7 @@ const BabyInfo: React.FC<BabyInfoType> = ({
           />
         ) : (
           // 기본 프로필 아이콘
-          <IcoProfileNull
-            className={'profile-upload'}
-            // onClick={handleProfileClick}
-          />
+          <IcoProfileNull className={'profile-upload'} />
         )}
         <IcoProfileEdit className={'profile-edit'} />
         <input
@@ -96,6 +96,7 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         placeholder="아이의 이름을 입력해주세요"
         value={params.babyName}
         descriptionTop={'이름'}
+        rightIcon={<}
         type="text"
         onChange={(e) => {
           onChangeValue('babyName', e.target.value);
@@ -106,7 +107,7 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         <SexSelectWrap>
           <Button
             label={'남자아이'}
-            variant={'Line_Gray'}
+            variant={params.sex === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
             size={'large'}
             onClick={() => onChangeValue('sex', 'man')}
           />
@@ -125,9 +126,9 @@ const BabyInfo: React.FC<BabyInfoType> = ({
           descriptionTop={'생년월일'}
           type="text"
           onChange={(e) => {
-            onChangeValue('생년월일', e.target.value);
+            onChangeValue('birthday', e.target.value);
           }}
-          readOnly={true}
+          // readOnly={true}
           variant={'white'}
           leftIcon={<IcoCalendar />}
         />

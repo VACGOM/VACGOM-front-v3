@@ -28,7 +28,6 @@ import { InputWrapper } from './styles';
  */
 
 export interface InputFormType {
-  id?: string;
   inputRef?: React.RefObject<HTMLInputElement>;
   readOnly?: boolean;
   disabled?: boolean;
@@ -100,7 +99,6 @@ const Index = ({
         )}
         <input
           className="input__content--input"
-          id={id}
           type={type}
           ref={inputRef}
           value={value}

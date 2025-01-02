@@ -10,7 +10,7 @@ export const HeadlineTitle = styled.div`
 `;
 
 export const HeadlineSubTitle = styled.div`
-  padding: 0 2rem 2rem 2rem;
+  padding: 0 2rem;
   ${theme.fonts.body2};
   color: ${theme.colors.Gray600};
 `;
@@ -19,4 +19,8 @@ export const InputWrap = styled.div`
   padding: 2rem;
   display: flex;
   gap: 8px;
+`;
+
+export const BabyInfoWrap = styled.div`
+  padding-bottom: 12rem;
 `;

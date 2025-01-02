@@ -41,7 +41,7 @@ export const IcoProfileWrap = styled.div`
   & > .profile-edit {
     position: absolute;
     bottom: 0;
-    right: 20rem;
+    left: 7.5rem;
     width: 3rem;
   }
 `;

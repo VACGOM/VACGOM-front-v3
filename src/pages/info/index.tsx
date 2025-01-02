@@ -3,6 +3,7 @@ import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import {
+  BabyInfoWrap,
   HeadlineSubTitle,
   HeadlineTitle,
   InputWrap,
@@ -11,6 +12,8 @@ import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
 import { IcoAddBlue } from '@/assets/svg';
 import BabyInfo from '@/component/molecule/BabyInfo';
+import { useBabiesImages } from '@/api/babies/babies-images';
+import { checkParamsFilled } from '@/utills/useUtil';
 
 export default function Terms() {
   const router = useRouter();
@@ -19,7 +22,6 @@ export default function Terms() {
   const [params, setParams] = useState<BabyInfoParamsType[]>([
     {
       id: 1,
-      inviteCode: '',
       babyName: '',
       sex: '',
       birthday: '',
@@ -32,7 +34,6 @@ export default function Terms() {
       ...prevState,
       {
         id: prevState.length + 1, // 새로운 ID
-        inviteCode: '',
         babyName: '',
         sex: '',
         birthday: '',
@@ -52,13 +53,14 @@ export default function Terms() {
           : baby,
       ),
     );
+    console.log(params);
   };
 
   return (
-    <>
+    <BabyInfoWrap>
       <BackHeader onClickHandler={bridge.back} />
       <HeadlineTitle>우리 아이 정보를 입력해 주세요</HeadlineTitle>
-      <HeadlineSubTitle>초대 코드를 입력해 주세요</HeadlineSubTitle>
+      <HeadlineSubTitle>입력한 정보는 언제든 수정이 가능해요</HeadlineSubTitle>
       {params.map((body) => (
         <BabyInfo
           key={body.id}
@@ -72,8 +74,8 @@ export default function Terms() {
       <InputWrap>
         <BottomButtonProvider
           label={'다음'}
-          isActive={params.inviteCode}
-          disabled={!params.inviteCode}
+          isActive={!checkParamsFilled(params)}
+          disabled={!checkParamsFilled(params)}
           onClick={() => {
             // 다음 페이지
           }}
@@ -84,6 +86,6 @@ export default function Terms() {
           onTwoButtonClick={addBabyInfo}
         />
       </InputWrap>
-    </>
+    </BabyInfoWrap>
   );
 }
