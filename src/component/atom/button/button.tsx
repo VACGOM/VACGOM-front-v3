@@ -21,7 +21,10 @@ export interface ButtonType {
     | 'Disabled'
     | 'kakao'
     | 'UnSelect'
-    | 'Select';
+    | 'Select'
+    | 'BabyAdd'
+    | 'Line_Gray'
+    | 'Line_Gray_Select';
   size?:
     | 'default'
     | 'small'

@@ -9,6 +9,20 @@ interface BottomButtonType {
   isActive: boolean;
   onClick: () => void;
   disabled?: boolean;
+  twoButton?: boolean;
+  twoButtonVariant?:
+    | 'default'
+    | 'Primary'
+    | 'Secondary'
+    | 'OutlineWhite'
+    | 'Disabled'
+    | 'kakao'
+    | 'UnSelect'
+    | 'Select'
+    | 'BabyAdd';
+  twoButtonLabel?: string;
+  twoButtonPrevIcon?: React.ReactNode;
+  onTwoButtonClick?: () => void;
 }
 
 const BottomButtonProvider: React.FC<BottomButtonType> = ({
@@ -16,11 +30,29 @@ const BottomButtonProvider: React.FC<BottomButtonType> = ({
   isActive,
   onClick,
   disabled = false,
+  twoButton = false,
+  twoButtonVariant = 'secondary',
+  twoButtonLabel,
+  twoButtonPrevIcon,
+  onTwoButtonClick,
 }) => {
   const router = useRouter();
 
   return (
     <BottomButtonContain>
+      {twoButton && (
+        <Button
+          prevIcon={twoButtonPrevIcon}
+          label={twoButtonLabel}
+          size={'bottombutton'}
+          variant={twoButtonVariant}
+          onClick={() => {
+            if (onTwoButtonClick) {
+              onTwoButtonClick();
+            }
+          }}
+        />
+      )}
       <Button
         label={label}
         size={'bottombutton'}

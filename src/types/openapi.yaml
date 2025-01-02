@@ -1,0 +1,941 @@
+---
+openapi: 3.0.1
+info:
+  title: VACGOM Open API
+  description: VACGOM Open API
+  version: 3.0.0
+servers:
+  - url: http://api-dev-v2.vacgom.co.kr
+    description: Generated server url
+security:
+  - JWT: []
+paths:
+  "/api/v3/vaccinations":
+    post:
+      tags:
+        - vaccination-controller
+      operationId: createVaccinations
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/ClientRequest"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/users":
+    get:
+      tags:
+        - 유저 API
+      summary: 유저 상세정보 조회 API
+      operationId: getUserDetail
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/UserDto.Response.UserDetail"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - 유저 API
+      summary: 회원 가입 API
+      description: "\n            엑세스 토큰 필요 X\n        "
+      operationId: signup
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SignupDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/SignupDto.Response"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+        - 유저 API
+      summary: 회원 탈퇴 API
+      operationId: revoke
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/invitation":
+    post:
+      tags:
+        - 초대 코드 API
+      summary: 초대 코드 조회 API
+      operationId: getBabiesByInvitationCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/InvitationDto.Request.Get"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/BaseResponseListBabyDto.Response.Detail"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/invitation/my":
+    post:
+      tags:
+        - 초대 코드 API
+      summary: 초대 코드 생성 API
+      operationId: createInvitationCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/InvitationDto.Request.Create"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/InvitationDto.Response.Create"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/snack":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 간식 기록 추가 API
+      operationId: addBreastFeeding
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SnackDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/sleep":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 수면 기록 추가 API
+      operationId: addBreastFeeding_1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SleepDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/health":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 건강 기록 추가 API
+      operationId: addBreastFeeding_2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/HealthDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/diaper":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 기저귀 기록 추가 API
+      operationId: addBreastFeeding_3
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/DiaperDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/breast-pumping":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 유축 기록 추가 API
+      operationId: addBreastFeeding_4
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BreastPumpingDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/breast-feeding":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 모유 수유 기록 추가 API
+      operationId: addBreastFeeding_5
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BreastFeedingDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/bath":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 목욕 기록 추가 API
+      operationId: addBreastFeeding_6
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BathDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/baby-formula":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 분유 기록 추가 API
+      operationId: addBreastFeeding_7
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BabyFormulaDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history/baby-food":
+    post:
+      tags:
+        - 육아 기록 API
+      summary: 이유식 기록 추가 API
+      operationId: addBreastFeeding_8
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BabyFoodDto.Request"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/babies/images":
+    post:
+      tags:
+        - 아기 API
+      summary: 아기 프로필 이미지 업로드 API
+      operationId: uploadBabyImage
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              "$ref": "#/components/schemas/UploadImage"
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/BaseResponseListBabyDto.Response.UploadedImage"
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/auth/logout":
+    post:
+      tags:
+        - 인증 API
+      summary: 로그아웃 API
+      operationId: logout
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/auth/login/{provider}":
+    post:
+      tags:
+        - 인증 API
+      summary: 소셜 로그인 API
+      description: "\n            엑세스 토큰 필요 X\n        "
+      operationId: socialLogin
+      parameters:
+        - name: provider
+          in: path
+          description: 소셜 로그인 Provider
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/LoginDto.Request.Social"
+        required: true
+      responses:
+        '200':
+          description: 로그인 성공 시 or 회원 가입이 필요한 경우
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    oneOf:
+                      - "$ref": "#/components/schemas/LoginDto.Response.Success"
+                      - "$ref": "#/components/schemas/LoginDto.Response.Register"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/auth/reissue":
+    patch:
+      tags:
+        - 인증 API
+      summary: 엑세스 토큰 재발급 API
+      description: "\n            헤더에 refresh Token 필요\n        "
+      operationId: reIssueAccessToken
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/TokenDto.Response.Access"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/care-history":
+    get:
+      tags:
+        - 육아 기록 API
+      summary: 육아 기록 통계 조회(일간) API
+      operationId: getCareHistoryByExecutionDate
+      parameters:
+        - name: babyId
+          in: query
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: executionDate
+          in: query
+          required: true
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/CareHistoryDto.Response.DailyStat"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+components:
+  schemas:
+    ErrorResponse:
+      required:
+        - errorCode
+        - errorMessage
+        - timeStamp
+      type: object
+      properties:
+        timeStamp:
+          type: string
+        errorCode:
+          type: string
+        errorMessage:
+          type: string
+        details:
+          type: object
+    ClientRequest:
+      required:
+        - vaccinations
+      type: object
+      properties:
+        vaccinations:
+          type: array
+          items:
+            "$ref": "#/components/schemas/VaccinationRequest"
+    VaccinationRequest:
+      required:
+        - doseRound
+        - vaccinatedDate
+        - vaccineName
+      type: object
+      properties:
+        vaccineName:
+          type: string
+        doseRound:
+          type: integer
+          format: int64
+        doseDescription:
+          type: string
+        vaccinatedDate:
+          type: string
+          format: date
+        vaccinationFacility:
+          type: string
+        vaccineManufacturer:
+          type: string
+        vaccineProductName:
+          type: string
+        vaccineLotNumber:
+          type: string
+    SignupDto.Response:
+      required:
+        - accessToken
+        - refreshToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    Baby:
+      required:
+        - birthday
+        - gender
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        profileImg:
+          type: string
+        birthday:
+          type: string
+          format: date
+    SignupDto.Request:
+      required:
+        - babies
+        - nickname
+        - registerToken
+      type: object
+      properties:
+        registerToken:
+          type: string
+        nickname:
+          type: string
+        babies:
+          type: array
+          items:
+            "$ref": "#/components/schemas/Baby"
+    InvitationDto.Request.Get:
+      required:
+        - invitationCode
+      type: object
+      properties:
+        invitationCode:
+          type: string
+    BabyDto.Response.Detail:
+      required:
+        - birthday
+        - gender
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        profileImg:
+          type: string
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        birthday:
+          type: string
+          format: date
+    BaseResponseListBabyDto.Response.Detail:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/BabyDto.Response.Detail"
+    InvitationDto.Response.Create:
+      required:
+        - invitationCode
+      type: object
+      properties:
+        invitationCode:
+          type: string
+    InvitationDto.Request.Create:
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+    SnackDto.Request:
+      required:
+        - babyId
+        - executionTime
+        - memo
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        memo:
+          type: string
+        executionTime:
+          type: string
+          format: date-time
+    SleepDto.Request:
+      required:
+        - babyId
+        - endDate
+        - executionTime
+        - startDate
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        executionTime:
+          type: string
+          format: date-time
+    HealthDto.Request:
+      required:
+        - babyId
+        - executionTime
+        - memo
+        - temperature
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        temperature:
+          type: number
+          format: double
+        memo:
+          type: string
+        executionTime:
+          type: string
+          format: date-time
+    DiaperDto.Request:
+      required:
+        - babyId
+        - excrementType
+        - executionTime
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        excrementType:
+          type: string
+          enum:
+            - POO
+            - PEE
+            - POOPEE
+        executionTime:
+          type: string
+          format: date-time
+    BreastPumpingDto.Request:
+      required:
+        - amount
+        - babyId
+        - executionTime
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        amount:
+          type: integer
+          format: int32
+        executionTime:
+          type: string
+          format: date-time
+    BreastFeedingDto.Request:
+      required:
+        - babyId
+        - breastDirection
+        - endDate
+        - executionTime
+        - startDate
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        breastDirection:
+          type: string
+          enum:
+            - LEFT
+            - RIGHT
+        executionTime:
+          type: string
+          format: date-time
+    BathDto.Request:
+      required:
+        - babyId
+        - endDate
+        - executionTime
+        - startDate
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        startDate:
+          type: string
+          format: date-time
+        endDate:
+          type: string
+          format: date-time
+        executionTime:
+          type: string
+          format: date-time
+    BabyFormulaDto.Request:
+      required:
+        - amount
+        - babyId
+        - executionTime
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        amount:
+          type: integer
+          format: int32
+        executionTime:
+          type: string
+          format: date-time
+    BabyFoodDto.Request:
+      required:
+        - amount
+        - babyId
+        - executionTime
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        amount:
+          type: integer
+          format: int32
+        executionTime:
+          type: string
+          format: date-time
+    UploadImage:
+      required:
+        - images
+      type: object
+      properties:
+        images:
+          type: array
+          items:
+            type: string
+            format: binary
+      description: 이미지 바이너리 데이터
+    BabyDto.Response.UploadedImage:
+      required:
+        - imageUrl
+      type: object
+      properties:
+        imageUrl:
+          type: string
+    BaseResponseListBabyDto.Response.UploadedImage:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/BabyDto.Response.UploadedImage"
+    LoginDto.Response.Success:
+      required:
+        - accessToken
+        - refreshToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+        refreshToken:
+          type: string
+    LoginDto.Response.Register:
+      required:
+        - registerToken
+      type: object
+      properties:
+        registerToken:
+          type: string
+    LoginDto.Request.Social:
+      required:
+        - accessToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+      description: 요청 body
+    TokenDto.Response.Access:
+      required:
+        - accessToken
+      type: object
+      properties:
+        accessToken:
+          type: string
+    UserDto.Response.UserDetail:
+      required:
+        - createdAt
+        - id
+        - nickname
+        - provider
+        - role
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        nickname:
+          type: string
+        socialId:
+          type: string
+        provider:
+          type: string
+          enum:
+            - KAKAO
+        role:
+          type: string
+          enum:
+            - ROLE_USER
+        createdAt:
+          type: string
+          format: date-time
+    AbstractDailyStatDto:
+      required:
+        - careName
+      type: object
+      properties:
+        careName:
+          type: string
+    CareHistoryDto.Response.DailyStat:
+      required:
+        - babyId
+        - careItems
+        - executionDate
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        executionDate:
+          type: string
+          format: date
+        careItems:
+          type: object
+          additionalProperties:
+            "$ref": "#/components/schemas/AbstractDailyStatDto"
+  securitySchemes:
+    JWT:
+      type: http
+      name: JWT
+      scheme: bearer
+      bearerFormat: JWT

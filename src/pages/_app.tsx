@@ -6,10 +6,11 @@ import { VacBridgeProvider } from '@/bridge/VacBridgeProvider';
 import { Global, ThemeProvider } from '@emotion/react';
 import GlobalStyle from '@/styles/globalStyles';
 import { theme } from '@/styles/theme';
+import ReactQueryProviders from '@/api/react-query-provider';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter(); // Initialize router
-  
+
   // const checkToken = () => {
   //   const accessToken = LocalStorage.getItem('accessToken');
   //   if (!accessToken) {
@@ -20,7 +21,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // useEffect(() => {
   //   checkToken();
   // }, []);
-  
+
   return (
     <>
       <Script
@@ -29,8 +30,10 @@ function MyApp({ Component, pageProps }: AppProps) {
       ></Script>
       <VacBridgeProvider>
         <ThemeProvider theme={theme}>
-          <Global styles={GlobalStyle} />
-          <Component {...pageProps} />
+          <ReactQueryProviders>
+            <Global styles={GlobalStyle} />
+            <Component {...pageProps} />
+          </ReactQueryProviders>
         </ThemeProvider>
       </VacBridgeProvider>
     </>

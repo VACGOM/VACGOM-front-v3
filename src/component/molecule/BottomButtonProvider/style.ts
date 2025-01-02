@@ -14,4 +14,6 @@ export const BottomButtonContain = styled.header`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  gap: 1rem;
 `;

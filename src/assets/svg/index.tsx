@@ -1,9 +1,15 @@
 export { default as Favicon } from './Favicon';
+export { default as IcoProfileNull } from './IcoProfileNull';
+export { default as IcoProfileEdit } from './IcoProfileEdit';
+export { default as IcoAddBlue } from './IcoAddBlue';
 export { default as IcoArrowLeft } from './IcoArrowLeft';
 export { default as IcoArrowLeftWhite } from './IcoArrowLeftWhite';
+export { default as IcoCalendar } from './IcoCalendar';
 export { default as IcoCheckBlue } from './IcoCheckBlue';
 export { default as IcoCheckGray } from './IcoCheckGray';
 export { default as IcoCheckboxSelectedEnabled } from './IcoCheckboxSelectedEnabled';
 export { default as IcoCheckboxUnselectedEnabled } from './IcoCheckboxUnselectedEnabled';
 export { default as IcoChevron } from './IcoChevron';
+export { default as IcoCircleXFilled } from './IcoCircleXFilled';
+export { default as IcoProfieUpload } from './IcoProfieUpload';
 export { default as IcoVacFrame1 } from './IcoVacFrame1';
