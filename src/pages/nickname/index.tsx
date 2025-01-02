@@ -2,7 +2,6 @@ import * as yup from 'yup';
 import { useVacBridge } from '@/bridge/VacBridgeProvider';
 import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
-import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import { useRouter } from 'next/navigation';
 import {
   HeadlineSubTitle,

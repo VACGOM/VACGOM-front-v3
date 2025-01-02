@@ -1,23 +1,19 @@
-'use client';
-
 import * as React from 'react';
-import { SignupErrorPageWrap } from './style';
+import { WelcomePageWrap } from './style';
 
-import BackHeader from '@/app/_component/molecule/BackHeader';
-import { PATH } from '@/routes/path';
-import Button from '@/app/_component/atom/button/button';
 import { useRouter } from 'next/navigation';
-import { useBridge } from '@/bridge/hook/useBridge';
+import Button from '@/component/atom/Button/button';
+import { useVacBridge } from '@/bridge/VacBridgeProvider';
 
-const SignupErrorPage = (): React.JSX.Element => {
+export default function WelcomePage() {
   const router = useRouter();
-  const { goHome } = useBridge();
+  const bridge = useVacBridge();
 
   return (
-    <SignupErrorPageWrap>
+    <WelcomePageWrap>
       <div className="container">
         <div className="top">
-          <div className="cate">정보 조회 완료</div>
+          <div className="cate">가입 완료</div>
           <div className="title">환영합니다!</div>
           <div className="subTitle">지금 바로, 백곰을 시작해 보세요!</div>
         </div>
@@ -33,12 +29,11 @@ const SignupErrorPage = (): React.JSX.Element => {
             label={'백곰 시작하기'}
             size={'large'}
             onClick={() => {
-              goHome();
+              // bridge.routeTo('/home');
             }}
           />
         </div>
       </div>
-    </SignupErrorPageWrap>
+    </WelcomePageWrap>
   );
-};
-export default SignupErrorPage;
+}

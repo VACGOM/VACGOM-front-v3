@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { Colors, fontGenerator } from '@/styles';
 
-export const SignupErrorPageWrap = styled.main`
+export const WelcomePageWrap = styled.main`
   width: 100%;
   height: 100vh;
   top: 0;
@@ -16,7 +16,7 @@ export const SignupErrorPageWrap = styled.main`
   }
   & > .container {
     & > .top {
-      margin: 10vh 0;
+      padding: 10vh 0;
       display: flex;
       flex-direction: column;
       align-items: center;
