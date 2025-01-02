@@ -3,15 +3,12 @@ import { useVacBridge } from '@/bridge/VacBridgeProvider';
 import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import {
-  HeadlineSubTitle,
-  HeadlineTitle,
-  InputWrap,
-} from '@/pages/invite/style';
+import { HeadlineTitle } from '@/pages/invite/style';
 import InputForm from '@/component/atom/InputForm';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
 import WarningToastWrap from '@/component/molecule/WorningToastWrap';
+import { InputWrap } from '@/pages/info/style';
 
 export default function Terms() {
   const router = useRouter();
