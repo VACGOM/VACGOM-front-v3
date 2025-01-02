@@ -15,7 +15,7 @@ import {
   IcoProfileNull,
 } from '@/assets/svg';
 import InputForm from '@/component/atom/InputForm';
-import Button from '@/component/atom/button/button';
+import Button from '@/component/atom/Button/button';
 import { useBabiesImages } from '@/api/babies/babies-images';
 import Image from 'next/image';
 

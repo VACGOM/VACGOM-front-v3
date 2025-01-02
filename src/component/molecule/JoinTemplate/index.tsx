@@ -2,7 +2,7 @@
 import React from 'react';
 import { JoinTempButton, JoinTemplateContainer, JoinTempTop } from './style';
 import { Icons } from '@/styles';
-import Button from '@/component/atom/button/button';
+import Button from '@/component/atom/Button/button';
 import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import {
   IcoCheckboxSelectedEnabled,
