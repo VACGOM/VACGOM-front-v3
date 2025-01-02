@@ -34,4 +34,5 @@ export const PATH = {
   invite_confirm: '/invite/confirm',
   info: '/info',
   welcome: '/welcome',
+  nickname: '/nickname',
 };

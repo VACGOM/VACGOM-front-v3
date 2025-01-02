@@ -1,33 +1,15 @@
-import { useVacBridge } from '@/bridge/VacBridgeProvider';
-import BackHeader from '@/component/molecule/BackHeader';
-import React, { useState } from 'react';
-import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
-import { useRouter } from 'next/navigation';
-import {
-  ButtonWrap,
-  HeadlineSubTitle,
-  HeadlineTitle,
-  InputWrap,
-} from '@/pages/invite/style';
-import InputForm from '@/component/atom/InputForm';
-import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
+import React from 'react';
 import { PATH } from '@/routes/path';
+import { useVacBridge } from '@/bridge/VacBridgeProvider';
+import { useRouter } from 'next/navigation';
+import BackHeader from '@/component/molecule/BackHeader';
+import { ButtonWrap, HeadlineTitle } from '@/pages/invite/style';
 import Button from '@/component/atom/Button/button';
+import BabyCheck from '@/component/molecule/BabyCheck';
 
-export default function Terms() {
-  const router = useRouter();
+export default function InviteCheck() {
   const bridge = useVacBridge();
-
-  const [params, setParams] = useState<ParamsType>({
-    inviteCode: '',
-  });
-
-  const onChangeValue: OnChangeValueType = (field, value) => {
-    setParams((prevState) => ({
-      ...prevState,
-      [field]: value,
-    }));
-  };
+  const router = useRouter();
 
   return (
     <>
@@ -36,14 +18,21 @@ export default function Terms() {
         우리 아이 정보를 <br />
         확인해주세요
       </HeadlineTitle>
+      <BabyCheck />
       <ButtonWrap>
         <Button
           label={'우리 아이가 아니에요'}
           size={'large'}
           variant={'OutlineWhite'}
-          onClick={() => {}}
+          onClick={bridge.back}
         />
-        <Button label={'등록하기'} size={'large'} onClick={() => {}} />
+        <Button
+          label={'등록하기'}
+          size={'large'}
+          onClick={() => {
+            router.push(PATH.nickname);
+          }}
+        />
       </ButtonWrap>
     </>
   );
