@@ -8,7 +8,12 @@ import {
   Title,
 } from './style';
 import { useRouter } from 'next/navigation';
-import { IcoCalendar, IcoProfileEdit, IcoProfileNull } from '@/assets/svg';
+import {
+  IcoCalendar,
+  IcoCircleXFilled,
+  IcoProfileEdit,
+  IcoProfileNull,
+} from '@/assets/svg';
 import InputForm from '@/component/atom/InputForm';
 import Button from '@/component/atom/button/button';
 import { useBabiesImages } from '@/api/babies/babies-images';
@@ -96,7 +101,8 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         placeholder="아이의 이름을 입력해주세요"
         value={params.babyName}
         descriptionTop={'이름'}
-        rightIcon={<}
+        rightIcon={params.babyName ? <IcoCircleXFilled /> : null}
+        onClickRightIcon={() => onChangeValue('babyName', '')}
         type="text"
         onChange={(e) => {
           onChangeValue('babyName', e.target.value);

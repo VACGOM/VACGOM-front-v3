@@ -41,6 +41,7 @@ export interface InputFormType {
   onClick?: (event: React.MouseEvent<HTMLInputElement>) => void;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  onClickRightIcon?: (event: React.MouseEvent<HTMLSpanElement>) => void;
   description?: string;
   descriptionTop?: string;
   customStyle?: any;
@@ -71,6 +72,7 @@ const Index = ({
   autoComplete = 'one-time-code',
   leftIcon,
   rightIcon,
+  onClickRightIcon,
 }: React.PropsWithChildren<InputFormType>) => {
   const [isInputFilled, setInputFilled] = useState(false);
 
@@ -113,7 +115,10 @@ const Index = ({
           autoComplete={autoComplete}
         />
         {rightIcon && (
-          <span className="common-icon input__content--right__icon">
+          <span
+            className="common-icon input__content--right__icon"
+            onClick={onClickRightIcon}
+          >
             {rightIcon}
           </span>
         )}
