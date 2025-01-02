@@ -15,12 +15,6 @@ const SignupErrorPage = (): React.JSX.Element => {
 
   return (
     <SignupErrorPageWrap>
-      <BackHeader
-        title={' '}
-        url={PATH.SIGNUP}
-        color={'white'}
-        nonicon={true}
-      />
       <div className="container">
         <div className="top">
           <div className="cate">정보 조회 완료</div>

@@ -65,7 +65,7 @@ export default function Terms() {
           isActive={nickname}
           disabled={!nickname}
           onClick={() => {
-            validateNickname(nickname) && router.push(PATH.wellcome);
+            validateNickname(nickname) && router.push(PATH.welcome);
           }}
         />
         <WarningToastWrap errorMessage={error} setErrorMessage={setError} />
