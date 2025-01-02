@@ -2,7 +2,6 @@ import * as yup from 'yup';
 import { useVacBridge } from '@/bridge/VacBridgeProvider';
 import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
-import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import { useRouter } from 'next/navigation';
 import {
   HeadlineSubTitle,
@@ -65,7 +64,7 @@ export default function Terms() {
           isActive={nickname}
           disabled={!nickname}
           onClick={() => {
-            validateNickname(nickname) && router.push(PATH.wellcome);
+            validateNickname(nickname) && router.push(PATH.welcome);
           }}
         />
         <WarningToastWrap errorMessage={error} setErrorMessage={setError} />
