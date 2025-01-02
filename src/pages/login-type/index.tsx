@@ -12,7 +12,7 @@ import { css } from '@emotion/react';
 import { useRouter } from 'next/navigation';
 import { PATH } from '@/routes/path';
 import BackHeader from '@/component/molecule/BackHeader';
-import Button from '@/component/atom/button/button';
+import Button from '@/component/atom/Button/button';
 import { useVacBridge } from '@/bridge/VacBridgeProvider';
 import { IcoVacFrame1 } from '@/assets/svg';
 
