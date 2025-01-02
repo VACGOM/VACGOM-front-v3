@@ -2,11 +2,11 @@ import axios from 'axios';
 import { PATH_API } from '@/api/path';
 
 export const axiosInstance = axios.create({
-  baseURL: PATH_API.API_DOMAIN,
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     'Content-Type': 'application/vnd.api+json',
   },
-  // withCredentials:true, // 쿠키 cors 통신 설정
+  withCredentials: true,
 });
 
 // 취소 토큰을 생성하는 함수
@@ -39,7 +39,6 @@ axiosInstance.interceptors.request.use(
 axiosInstance.interceptors.response.use(
   (response) => response,
   async (error) => {
-    // timeout
     if (axios.isCancel(error)) {
       // 취소된 요청은 에러로 처리하지 않음
       Promise.resolve();

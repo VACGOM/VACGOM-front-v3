@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   BabyInfoContainer,
   BabyInfoValue,
@@ -11,6 +11,8 @@ import { useRouter } from 'next/navigation';
 import { IcoCalendar, IcoProfileEdit, IcoProfileNull } from '@/assets/svg';
 import InputForm from '@/component/atom/InputForm';
 import Button from '@/component/atom/button/button';
+import { useBabiesImages } from '@/api/babies/babies-images';
+import Image from 'next/image';
 
 export interface BabyInfoType {
   params: BabyInfoParamsType;
@@ -36,26 +38,20 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     }
   };
 
-  const { mutate: uploadImage } = useMutation(
-    (formData: FormData) =>
-      axios.post('/api/v3/babies/images', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      }),
-    {
-      onSuccess: (response) => {
-        // 서버에서 반환된 이미지 URL로 상태 업데이트
-        const uploadedImageUrl = response.data?.imageUrl;
-        if (uploadedImageUrl) {
-          setProfileImage(uploadedImageUrl);
-        }
-        alert('이미지가 성공적으로 업로드되었습니다.');
-      },
-      onError: (error) => {
-        console.error(error);
-        alert('이미지 업로드에 실패했습니다.');
-      },
+  const { mutate: uploadImage } = useBabiesImages({
+    onSuccess: (response) => {
+      // 서버에서 반환된 이미지 URL로 상태 업데이트
+      const uploadedImageUrl = response.imageUrl;
+      if (uploadedImageUrl) {
+        setProfileImage(uploadedImageUrl);
+      }
+      alert('이미지가 성공적으로 업로드되었습니다.');
     },
-  );
+    onError: (error) => {
+      console.error(error);
+      alert('이미지 업로드에 실패했습니다.');
+    },
+  });
 
   const handleProfileClick = () => {
     if (fileInputRef.current) {
@@ -67,10 +63,26 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     <BabyInfoContainer>
       <IcoProfileWrap
         onClick={() => {
-          handleProfileClick();
+          // handleProfileClick();
         }}
       >
-        <IcoProfileNull className={'profile-upload'} />
+        {profileImage ? (
+          // 업로드된 이미지 표시
+          <Image
+            src={profileImage}
+            alt="Profile"
+            width={100} // 원하는 너비
+            height={100} // 원하는 높이
+            className="profile-upload"
+            style={{ borderRadius: '50%' }}
+          />
+        ) : (
+          // 기본 프로필 아이콘
+          <IcoProfileNull
+            className={'profile-upload'}
+            // onClick={handleProfileClick}
+          />
+        )}
         <IcoProfileEdit className={'profile-edit'} />
         <input
           type="file"

@@ -3,6 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
+import { paths, components } from '@/types/type';
 
 import { setSession } from '@/api/api_utils';
 import { useRouter } from 'next/navigation';
@@ -10,14 +11,20 @@ import { QUERY_KEY } from '@/api/queryKeys';
 import { axiosInstance } from '@/api/axios';
 import { PATH_API } from '@/api/path';
 
-// 카카오 간편인증 1차
+type BabiesImagesResponse =
+  components['schemas']['BabyDto.Response.UploadedImage'];
+
+// 아기 이미지 업로드
 export const useBabiesImages = <T>(
-  options?: Omit<UseMutationOptions<any, any, T>, 'mutationKey'>,
+  options?: Omit<
+    UseMutationOptions<BabiesImagesResponse, any, T>,
+    'mutationKey'
+  >,
 ) => {
   const queryClient = useQueryClient();
   const navigate = useRouter();
 
-  return useMutation({
+  return useMutation<BabiesImagesResponse, any, T>({
     mutationKey: [QUERY_KEY.BABIES_IMAGES],
     mutationFn: async (payload: T) => {
       const response = await axiosInstance.post(

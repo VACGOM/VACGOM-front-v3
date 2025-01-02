@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useId, useState } from 'react';
+import React, { useState } from 'react';
 
 // Styles
 import { css } from '@emotion/react';
@@ -52,7 +52,6 @@ export interface InputFormType {
 }
 
 const Index = ({
-  id = useId(),
   inputRef,
   readOnly = false,
   disabled = false,
