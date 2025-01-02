@@ -3,9 +3,9 @@ import { PATH_API } from '@/api/path';
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
-  headers: {
-    'Content-Type': 'application/vnd.api+json',
-  },
+  // headers: {
+  //   'Content-Type': 'application/vnd.api+json',
+  // },
   withCredentials: true,
 });
 

@@ -30,13 +30,20 @@ export const useBabiesImages = <T>(
       const response = await axiosInstance.post(
         PATH_API.BABIES_IMAGES,
         payload,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+        },
       );
       return response.data;
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.BABIES_IMAGES] });
     },
-    onError: (error) => {},
+    onError: (error) => {
+      console.error('이미지 업로드 에러:', error);
+    },
     ...options,
   });
 };

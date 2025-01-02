@@ -39,9 +39,16 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     setProfileImage(URL.createObjectURL(file));
 
     if (file) {
+      // FormData 생성 및 파일 추가
       const formData = new FormData();
-      formData.append('image', file);
-      console.log('formData', formData);
+      formData.append('images', file);
+
+      // FormData 내용 확인
+      for (let [key, value] of formData.entries()) {
+        console.log(`FormData Key: ${key}, Value:`, value);
+      }
+
+      // 서버로 전송
       uploadImage(formData);
     }
   };
