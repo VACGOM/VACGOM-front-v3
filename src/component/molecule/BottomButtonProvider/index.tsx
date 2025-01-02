@@ -2,7 +2,7 @@
 import React from 'react';
 import { BottomButtonContain } from './style';
 import { useRouter } from 'next/navigation';
-import Button from '@/component/atom/button/button';
+import Button from '@/component/atom/Button/button';
 
 interface BottomButtonType {
   label: string;

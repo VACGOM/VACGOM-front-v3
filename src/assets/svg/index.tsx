@@ -13,3 +13,4 @@ export { default as IcoChevron } from './IcoChevron';
 export { default as IcoCircleXFilled } from './IcoCircleXFilled';
 export { default as IcoProfieUpload } from './IcoProfieUpload';
 export { default as IcoVacFrame1 } from './IcoVacFrame1';
+export { default as IcoWarning } from './IcoWarning';
