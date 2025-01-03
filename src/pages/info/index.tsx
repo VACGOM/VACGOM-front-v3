@@ -7,12 +7,10 @@ import {
   HeadlineSubTitle,
   HeadlineTitle,
   InputWrap,
-} from '@/pages/invite/style';
+} from '@/pages/info/style';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
-import { PATH } from '@/routes/path';
 import { IcoAddBlue } from '@/assets/svg';
 import BabyInfo from '@/component/molecule/BabyInfo';
-import { useBabiesImages } from '@/api/babies/babies-images';
 import { checkParamsFilled } from '@/utills/useUtil';
 
 export default function Terms() {
