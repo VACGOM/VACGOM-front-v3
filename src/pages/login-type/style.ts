@@ -11,7 +11,7 @@ export const LoginTypePadding = styled.div`
   padding: 0 2rem;
   display: grid;
   grid-template-rows: 1fr auto 1fr;
-  height: calc(100vh - 6rem);
+  height: calc(100vh - 7rem);
 `;
 
 export const LoginTypeTop = styled.div`
