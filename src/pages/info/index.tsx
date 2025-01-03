@@ -11,7 +11,9 @@ import {
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { IcoAddBlue } from '@/assets/svg';
 import BabyInfo from '@/component/molecule/BabyInfo';
-import { checkParamsFilled } from '@/utills/useUtil';
+import { checkParamsFilled, checkParamsListFilled } from '@/utills/useUtil';
+import { usePostUsers } from '@/api/users/usePostUsers';
+import { PATH } from '@/routes/path';
 
 export default function Terms() {
   const router = useRouter();
@@ -23,7 +25,8 @@ export default function Terms() {
       babyName: '',
       sex: '',
       birthday: '',
-      profileImage: null,
+      profileImage:
+        'images.vacgom.co.kr/baby_profile/0194284f-1d42-7701-b7d9-13ef432e7b53.jpg',
     },
   ]);
 
@@ -35,7 +38,8 @@ export default function Terms() {
         babyName: '',
         sex: '',
         birthday: '',
-        profileImage: null, // 새 이미지 필드
+        profileImage:
+          'images.vacgom.co.kr/baby_profile/0194284f-1d42-7701-b7d9-13ef432e7b53.jpg',
       },
     ]);
   };
@@ -53,6 +57,8 @@ export default function Terms() {
     );
     console.log(params);
   };
+
+  const { mutate } = usePostUsers();
 
   return (
     <BabyInfoWrap>
@@ -72,10 +78,11 @@ export default function Terms() {
       <InputWrap>
         <BottomButtonProvider
           label={'다음'}
-          isActive={!checkParamsFilled(params)}
-          disabled={!checkParamsFilled(params)}
+          isActive={checkParamsListFilled(params)}
+          disabled={!checkParamsListFilled(params)}
           onClick={() => {
             // 다음 페이지
+            router.push(PATH.nickname);
           }}
           twoButtonLabel={'아이 추가하기'}
           twoButtonVariant={'BabyAdd'}

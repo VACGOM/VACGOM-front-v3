@@ -3,5 +3,5 @@ interface BabyInfoParamsType {
   babyName: string;
   sex: string;
   birthday: string;
-  profileImage: File | null;
+  profileImage: File | null | string;
 }

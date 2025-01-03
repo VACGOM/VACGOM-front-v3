@@ -16,7 +16,7 @@ import {
 } from '@/assets/svg';
 import InputForm from '@/component/atom/InputForm';
 import Button from '@/component/atom/Button/button';
-import { useBabiesImages } from '@/api/babies/babies-images';
+import { useBabiesImages } from '@/api/babies/usePostBabyImages';
 import Image from 'next/image';
 
 export interface BabyInfoType {
@@ -39,16 +39,14 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     setProfileImage(URL.createObjectURL(file));
 
     if (file) {
-      // FormData 생성 및 파일 추가
       const formData = new FormData();
       formData.append('images', file);
 
-      // FormData 내용 확인
+      // FormData 확인
       for (let [key, value] of formData.entries()) {
         console.log(`FormData Key: ${key}, Value:`, value);
       }
 
-      // 서버로 전송
       uploadImage(formData);
     }
   };
@@ -61,7 +59,6 @@ const BabyInfo: React.FC<BabyInfoType> = ({
 
   const { mutate: uploadImage } = useBabiesImages({
     onSuccess: (response) => {
-      // 서버에서 반환된 이미지 URL로 상태 업데이트
       const uploadedImageUrl = response.imageUrl;
       console.log('uploadedImageUrl', uploadedImageUrl);
       setProfileImage(uploadedImageUrl);
