@@ -9,6 +9,8 @@ import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
 import WarningToastWrap from '@/component/molecule/WorningToastWrap';
 import { InputWrap } from '@/pages/info/style';
+import { usePostUsers } from '@/api/users/usePostUsers';
+import useSignupStore from '@/store/signup/babySignup';
 
 export default function Terms() {
   const router = useRouter();
@@ -16,6 +18,8 @@ export default function Terms() {
 
   const [nickname, setNickName] = useState<string>('');
   const [error, setError] = useState('');
+  const { babies } = useSignupStore((state) => state);
+  console.log(babies);
 
   // yup 스키마 정의
   const nicknameSchema = yup
@@ -37,6 +41,31 @@ export default function Terms() {
       }
       return false;
     }
+  };
+
+  const { mutate: useSignup } = usePostUsers({
+    onSuccess: () => {
+      router.push(PATH.welcome);
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const handleSubmit = () => {
+    const transformData = babies.map((baby) => ({
+      name: baby.name,
+      gender: baby.gender,
+      birthday: baby.birthday,
+      profileImg: baby.profileImg,
+    }));
+
+    useSignup({
+      registerToken:
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM1ODMzMDk2LCJuYmYiOjE3MzU4MzMwOTYsImV4cCI6MTczNTgzMzY5Niwic29jaWFsSWQiOiIzNzc0Mzc1NTE3IiwicHJvdmlkZXIiOiJrYWthbyJ9.BV80hhuHVNxvCnhIgV7hizLwEujY7QsX4pdBQ8Edppo',
+      nickname,
+      babies: transformData,
+    });
   };
 
   return (
@@ -61,7 +90,7 @@ export default function Terms() {
           isActive={nickname}
           disabled={!nickname}
           onClick={() => {
-            validateNickname(nickname) && router.push(PATH.welcome);
+            validateNickname(nickname) && handleSubmit();
           }}
         />
         <WarningToastWrap errorMessage={error} setErrorMessage={setError} />

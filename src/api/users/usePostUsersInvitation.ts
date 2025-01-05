@@ -11,10 +11,10 @@ import { axiosInstance } from '@/api/axios';
 import { PATH_API } from '@/api/path';
 
 // API 요청 및 응답 타입 정의
-type UsersResponse = components['schemas']['SignupDto.Response'];
-type UserRequest = components['schemas']['SignupDto.Request'];
+type UsersResponse = components['schemas']['SignupDto.Request.Invitation'];
+type UserRequest = components['schemas']['SignupDto.Request.Invitation'];
 
-export const usePostUsers = (
+export const usePostUsersInvitation = (
   options?: Omit<
     UseMutationOptions<UsersResponse, any, UserRequest>,
     'mutationKey'
@@ -24,15 +24,18 @@ export const usePostUsers = (
   const navigate = useRouter();
 
   return useMutation<UsersResponse, any, UserRequest>({
-    mutationKey: [QUERY_KEY.USERS],
+    mutationKey: [QUERY_KEY.USERS_INVITATION],
     mutationFn: async (payload: UserRequest) => {
       console.log('payload:', payload);
-      const response = await axiosInstance.post(PATH_API.USERS, payload);
+      const response = await axiosInstance.post(
+        PATH_API.USERS_INVITATION,
+        payload,
+      );
       return response.data as UsersResponse;
     },
     onSuccess: (data) => {
       console.log('Mutation 성공:', data);
-      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USERS] });
+      queryClient.invalidateQueries({ queryKey: [QUERY_KEY.USERS_INVITATION] });
     },
     onError: (error) => {
       console.error('Mutation 에러:', error);

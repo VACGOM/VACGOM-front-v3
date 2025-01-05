@@ -4,22 +4,6 @@
  */
 
 export interface paths {
-    "/api/v3/vaccinations": {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        get?: never;
-        put?: never;
-        post: operations["createVaccinations"];
-        delete?: never;
-        options?: never;
-        head?: never;
-        patch?: never;
-        trace?: never;
-    };
     "/api/v3/users": {
         parameters: {
             query?: never;
@@ -39,6 +23,28 @@ export interface paths {
         post: operations["signup"];
         /** 회원 탈퇴 API */
         delete: operations["revoke"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/users/invitation": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        /**
+         * 회원 가입(초대코드) API
+         * @description
+         *                 엑세스 토큰 필요 X
+         *
+         */
+        post: operations["signupByInvitationCode"];
+        delete?: never;
         options?: never;
         head?: never;
         patch?: never;
@@ -231,6 +237,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/babies": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 유저 돌봄 아이 리스트 조회 API */
+        get: operations["getUserBabyDetails"];
+        put?: never;
+        /** 유저 돌봄 아이 추가 API */
+        post: operations["createBaby"];
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/api/v3/babies/images": {
         parameters: {
             query?: never;
@@ -287,6 +311,24 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/babies/{babyId}": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /** 아기 상세정보(나이 포함 여부 선택 가능) 조회 API */
+        get: operations["getBabyDetail"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        /** 아기 정보 업데이트 API */
+        patch: operations["updateBaby"];
+        trace?: never;
+    };
     "/api/v3/auth/reissue": {
         parameters: {
             query?: never;
@@ -326,6 +368,40 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/api/v3/baby-managers": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** 공동 돌보미 삭제 API */
+        delete: operations["deleteBabyManager"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
+    "/api/v3/baby-managers/unlink": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        get?: never;
+        put?: never;
+        post?: never;
+        /** 돌보미 아이 연결 해제 API */
+        delete: operations["unlinkBaby"];
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
 }
 export type webhooks = Record<string, never>;
 export interface components {
@@ -336,26 +412,16 @@ export interface components {
             errorMessage: string;
             details?: Record<string, never>;
         };
-        ClientRequest: {
-            vaccinations: components["schemas"]["VaccinationRequest"][];
-        };
-        VaccinationRequest: {
-            vaccineName: string;
-            /** Format: int64 */
-            doseRound: number;
-            doseDescription?: string;
-            /** Format: date */
-            vaccinatedDate: string;
-            vaccinationFacility?: string;
-            vaccineManufacturer?: string;
-            vaccineProductName?: string;
-            vaccineLotNumber?: string;
-        };
         "SignupDto.Response": {
             accessToken: string;
             refreshToken: string;
         };
-        Baby: {
+        "SignupDto.Request": {
+            registerToken: string;
+            nickname: string;
+            babies: components["schemas"]["SignupDto.Request.Baby"][];
+        };
+        "SignupDto.Request.Baby": {
             name: string;
             /** @enum {string} */
             gender: "MALE" | "FEMALE";
@@ -363,10 +429,10 @@ export interface components {
             /** Format: date */
             birthday: string;
         };
-        "SignupDto.Request": {
+        "SignupDto.Request.Invitation": {
             registerToken: string;
             nickname: string;
-            babies: components["schemas"]["Baby"][];
+            babyIds: string[];
         };
         "InvitationDto.Request.Get": {
             invitationCode: string;
@@ -473,8 +539,17 @@ export interface components {
             /** Format: date-time */
             executionTime: string;
         };
+        "BabyDto.Request.Create": {
+            name: string;
+            profileImg?: string;
+            /** @enum {string} */
+            gender: "MALE" | "FEMALE";
+            /** Format: date */
+            birthday: string;
+            isAdmin: boolean;
+        };
         /** @description 이미지 바이너리 데이터 */
-        UploadImage: {
+        "BabyDto.Request.UploadImage": {
             images: string[];
         };
         "BabyDto.Response.UploadedImage": {
@@ -495,6 +570,14 @@ export interface components {
         /** @description 요청 body */
         "LoginDto.Request.Social": {
             accessToken: string;
+        };
+        "BabyDto.Request.Update": {
+            name: string;
+            profileImg?: string;
+            /** @enum {string} */
+            gender: "MALE" | "FEMALE";
+            /** Format: date */
+            birthday: string;
         };
         "TokenDto.Response.Access": {
             accessToken: string;
@@ -523,6 +606,40 @@ export interface components {
                 [key: string]: components["schemas"]["AbstractDailyStatDto"];
             };
         };
+        "BabyDto.Response.DetailWithAge": {
+            /** Format: uuid */
+            id: string;
+            name: string;
+            profileImg?: string;
+            /** @enum {string} */
+            gender: "MALE" | "FEMALE";
+            /** Format: date */
+            birthday: string;
+            age: components["schemas"]["BabyDto.Response.DetailWithAge.BabyAge"];
+        };
+        "BabyDto.Response.DetailWithAge.BabyAge": {
+            /** Format: int32 */
+            year: number;
+            /** Format: int32 */
+            month: number;
+            /** Format: int32 */
+            day: number;
+        };
+        "BaseResponseListBabyDto.Response.DetailWithAge": {
+            result: boolean;
+            message?: string;
+            data?: components["schemas"]["BabyDto.Response.DetailWithAge"][];
+        };
+        "BabyManagerDto.Request.Delete": {
+            /** Format: uuid */
+            babyId: string;
+            /** Format: uuid */
+            managerId: string;
+        };
+        "BabyManagerDto.Request.Unlink": {
+            /** Format: uuid */
+            babyId: string;
+        };
     };
     responses: never;
     parameters: never;
@@ -532,37 +649,6 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
-    createVaccinations: {
-        parameters: {
-            query?: never;
-            header?: never;
-            path?: never;
-            cookie?: never;
-        };
-        requestBody: {
-            content: {
-                "application/json": components["schemas"]["ClientRequest"];
-            };
-        };
-        responses: {
-            /** @description OK */
-            200: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content?: never;
-            };
-            /** @description Bad Request */
-            400: {
-                headers: {
-                    [name: string]: unknown;
-                };
-                content: {
-                    "*/*": components["schemas"]["ErrorResponse"];
-                };
-            };
-        };
-    };
     getUserDetail: {
         parameters: {
             query?: never;
@@ -652,6 +738,45 @@ export interface operations {
                     [name: string]: unknown;
                 };
                 content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    signupByInvitationCode: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["SignupDto.Request.Invitation"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": {
+                        /** @example true */
+                        result?: unknown;
+                        /** @example  */
+                        message?: unknown;
+                        data?: components["schemas"]["SignupDto.Response"];
+                    };
+                };
             };
             /** @description Bad Request */
             400: {
@@ -1021,6 +1146,72 @@ export interface operations {
             };
         };
     };
+    getUserBabyDetails: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": {
+                        /** @example true */
+                        result?: unknown;
+                        /** @example  */
+                        message?: unknown;
+                        data?: components["schemas"]["BaseResponseListBabyDto.Response.DetailWithAge"];
+                    };
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    createBaby: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BabyDto.Request.Create"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     uploadBabyImage: {
         parameters: {
             query?: never;
@@ -1030,7 +1221,7 @@ export interface operations {
         };
         requestBody?: {
             content: {
-                "multipart/form-data": components["schemas"]["UploadImage"];
+                "multipart/form-data": components["schemas"]["BabyDto.Request.UploadImage"];
             };
         };
         responses: {
@@ -1129,6 +1320,86 @@ export interface operations {
             };
         };
     };
+    getBabyDetail: {
+        parameters: {
+            query?: {
+                withAge?: boolean;
+            };
+            header?: never;
+            path: {
+                babyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": {
+                        /** @example true */
+                        result?: unknown;
+                        /** @example  */
+                        message?: unknown;
+                        data?: components["schemas"]["BabyDto.Response.Detail"] | components["schemas"]["BabyDto.Response.DetailWithAge"];
+                    };
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    updateBaby: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path: {
+                babyId: string;
+            };
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BabyDto.Request.Update"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": {
+                        /** @example true */
+                        result?: unknown;
+                        /** @example  */
+                        message?: unknown;
+                        data?: components["schemas"]["BabyDto.Response.Detail"];
+                    };
+                };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
     reIssueAccessToken: {
         parameters: {
             query?: never;
@@ -1190,6 +1461,68 @@ export interface operations {
                         data?: components["schemas"]["CareHistoryDto.Response.DailyStat"];
                     };
                 };
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    deleteBabyManager: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BabyManagerDto.Request.Delete"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
+            };
+            /** @description Bad Request */
+            400: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "*/*": components["schemas"]["ErrorResponse"];
+                };
+            };
+        };
+    };
+    unlinkBaby: {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody: {
+            content: {
+                "application/json": components["schemas"]["BabyManagerDto.Request.Unlink"];
+            };
+        };
+        responses: {
+            /** @description OK */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content?: never;
             };
             /** @description Bad Request */
             400: {
