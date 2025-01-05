@@ -1,5 +1,6 @@
 export const PATH_API = {
   BABIES_IMAGES: '/babies/images',
+  USERS: '/users',
 };
 
 /**

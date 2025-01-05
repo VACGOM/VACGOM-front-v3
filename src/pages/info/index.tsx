@@ -7,25 +7,28 @@ import {
   HeadlineSubTitle,
   HeadlineTitle,
   InputWrap,
-} from '@/pages/invite/style';
+} from '@/pages/info/style';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
-import { PATH } from '@/routes/path';
 import { IcoAddBlue } from '@/assets/svg';
 import BabyInfo from '@/component/molecule/BabyInfo';
-import { useBabiesImages } from '@/api/babies/babies-images';
-import { checkParamsFilled } from '@/utills/useUtil';
+import { checkParamsFilled, checkParamsListFilled } from '@/utills/useUtil';
+import { usePostUsers } from '@/api/users/usePostUsers';
+import { PATH } from '@/routes/path';
+import useSignupStore from '@/store/signup/babySignup';
 
 export default function Terms() {
   const router = useRouter();
   const bridge = useVacBridge();
 
+  const { setBabies } = useSignupStore((state) => state);
+
   const [params, setParams] = useState<BabyInfoParamsType[]>([
     {
       id: 1,
-      babyName: '',
-      sex: '',
+      name: '',
+      gender: '',
       birthday: '',
-      profileImage: null,
+      profileImg: '',
     },
   ]);
 
@@ -34,10 +37,10 @@ export default function Terms() {
       ...prevState,
       {
         id: prevState.length + 1, // 새로운 ID
-        babyName: '',
-        sex: '',
+        name: '',
+        gender: '',
         birthday: '',
-        profileImage: null, // 새 이미지 필드
+        profileImg: '',
       },
     ]);
   };
@@ -55,6 +58,8 @@ export default function Terms() {
     );
     console.log(params);
   };
+
+  const { mutate } = usePostUsers();
 
   return (
     <BabyInfoWrap>
@@ -74,10 +79,12 @@ export default function Terms() {
       <InputWrap>
         <BottomButtonProvider
           label={'다음'}
-          isActive={!checkParamsFilled(params)}
-          disabled={!checkParamsFilled(params)}
+          isActive={checkParamsListFilled(params)}
+          disabled={!checkParamsListFilled(params)}
           onClick={() => {
             // 다음 페이지
+            router.push(PATH.nickname);
+            setBabies(params);
           }}
           twoButtonLabel={'아이 추가하기'}
           twoButtonVariant={'BabyAdd'}
