@@ -20,3 +20,9 @@ export const ButtonWrap = styled.div`
   width: 100%;
   z-index: 1000;
 `;
+
+export const InputWrap = styled.div`
+  padding: 2rem;
+  display: flex;
+  gap: 8px;
+`;

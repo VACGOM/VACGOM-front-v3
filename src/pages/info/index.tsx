@@ -14,18 +14,21 @@ import BabyInfo from '@/component/molecule/BabyInfo';
 import { checkParamsFilled, checkParamsListFilled } from '@/utills/useUtil';
 import { usePostUsers } from '@/api/users/usePostUsers';
 import { PATH } from '@/routes/path';
+import useSignupStore from '@/store/signup/babySignup';
 
 export default function Terms() {
   const router = useRouter();
   const bridge = useVacBridge();
 
+  const { setBabies } = useSignupStore((state) => state);
+
   const [params, setParams] = useState<BabyInfoParamsType[]>([
     {
       id: 1,
-      babyName: '',
-      sex: '',
+      name: '',
+      gender: '',
       birthday: '',
-      profileImage:
+      profileImg:
         'images.vacgom.co.kr/baby_profile/0194284f-1d42-7701-b7d9-13ef432e7b53.jpg',
     },
   ]);
@@ -35,10 +38,10 @@ export default function Terms() {
       ...prevState,
       {
         id: prevState.length + 1, // 새로운 ID
-        babyName: '',
-        sex: '',
+        name: '',
+        gender: '',
         birthday: '',
-        profileImage:
+        profileImg:
           'images.vacgom.co.kr/baby_profile/0194284f-1d42-7701-b7d9-13ef432e7b53.jpg',
       },
     ]);
@@ -83,6 +86,7 @@ export default function Terms() {
           onClick={() => {
             // 다음 페이지
             router.push(PATH.nickname);
+            useSignupStore.setState({ babies: params });
           }}
           twoButtonLabel={'아이 추가하기'}
           twoButtonVariant={'BabyAdd'}

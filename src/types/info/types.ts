@@ -1,7 +1,7 @@
 interface BabyInfoParamsType {
   id: number;
-  babyName: string;
-  sex: string;
+  name: string;
+  gender: string;
   birthday: string;
-  profileImage: File | null | string;
+  profileImg: File | null | string;
 }

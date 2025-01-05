@@ -103,9 +103,9 @@ const BabyInfo: React.FC<BabyInfoType> = ({
       </IcoProfileWrap>
       <InputForm
         placeholder="아이의 이름을 입력해주세요"
-        value={params.babyName}
+        value={params.name}
         descriptionTop={'이름'}
-        rightIcon={params.babyName ? <IcoCircleXFilled /> : null}
+        rightIcon={params.name ? <IcoCircleXFilled /> : null}
         onClickRightIcon={() => onChangeValue('babyName', '')}
         type="text"
         onChange={(e) => {
@@ -117,13 +117,15 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         <SexSelectWrap>
           <Button
             label={'남자아이'}
-            variant={params.sex === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
+            variant={params.gender === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
             size={'large'}
             onClick={() => onChangeValue('sex', 'man')}
           />
           <Button
             label={'여자아이'}
-            variant={params.sex === 'woman' ? 'Line_Gray_Select' : 'Line_Gray'}
+            variant={
+              params.gender === 'woman' ? 'Line_Gray_Select' : 'Line_Gray'
+            }
             size={'large'}
             onClick={() => onChangeValue('sex', 'woman')}
           />

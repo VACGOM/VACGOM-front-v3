@@ -21,32 +21,32 @@ const cancelTokenSource = () => {
 let firstRequestCancelToken = null;
 const TIMEOUT_TIME = 10_000;
 
-axiosInstance.interceptors.request.use(
-  (config) => {
-    firstRequestCancelToken = cancelTokenSource();
-    config.cancelToken = firstRequestCancelToken.token;
-    config.timeout = TIMEOUT_TIME;
-    return config;
-  },
-  (error) =>
-    // 요청 전 에러 처리
-    // add error handling before sending the request
-    Promise.reject(
-      (error.response && error.response.data) || 'Something went wrong',
-    ),
-);
-
-axiosInstance.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (axios.isCancel(error)) {
-      // 취소된 요청은 에러로 처리하지 않음
-      Promise.resolve();
-    }
-
-    // 그 외의 에러는 그대로 반환
-    return Promise.reject(
-      (error.response && error.response.data) || 'Something went wrong',
-    );
-  },
-);
+// axiosInstance.interceptors.request.use(
+//   (config) => {
+//     firstRequestCancelToken = cancelTokenSource();
+//     config.cancelToken = firstRequestCancelToken.token;
+//     config.timeout = TIMEOUT_TIME;
+//     return config;
+//   },
+//   (error) =>
+//     // 요청 전 에러 처리
+//     // add error handling before sending the request
+//     Promise.reject(
+//       (error.response && error.response.data) || 'Something went wrong',
+//     ),
+// );
+//
+// axiosInstance.interceptors.response.use(
+//   (response) => response,
+//   async (error) => {
+//     if (axios.isCancel(error)) {
+//       // 취소된 요청은 에러로 처리하지 않음
+//       Promise.resolve();
+//     }
+//
+//     // 그 외의 에러는 그대로 반환
+//     return Promise.reject(
+//       (error.response && error.response.data) || 'Something went wrong',
+//     );
+//   },
+// );
