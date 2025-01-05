@@ -26,6 +26,7 @@ export const usePostUsers = (
   return useMutation<UsersResponse, any, UserRequest>({
     mutationKey: [QUERY_KEY.USERS],
     mutationFn: async (payload: UserRequest) => {
+      console.log('payload:', payload);
       const response = await axiosInstance.post(PATH_API.USERS, payload);
       return response.data as UsersResponse;
     },
