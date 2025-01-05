@@ -31,7 +31,7 @@ export const PATH = {
   login_term: '/login-terms',
   login_type: '/login-type',
   invite: '/invite',
-  invite_confirm: '/invite/confirm',
+  invite_confirm: '/invite-check',
   info: '/info',
   welcome: '/welcome',
   nickname: '/nickname',
