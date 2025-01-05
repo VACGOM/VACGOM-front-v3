@@ -6,7 +6,7 @@ export const axiosInstance = axios.create({
   // headers: {
   //   'Content-Type': 'application/vnd.api+json',
   // },
-  withCredentials: true,
+  withCredentials: false,
 });
 
 // 취소 토큰을 생성하는 함수

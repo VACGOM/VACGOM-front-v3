@@ -59,10 +59,9 @@ const BabyInfo: React.FC<BabyInfoType> = ({
 
   const { mutate: uploadImage } = useBabiesImages({
     onSuccess: (response) => {
-      const uploadedImageUrl = response.imageUrl;
+      const uploadedImageUrl = response.data[0].imageUrl;
       console.log('uploadedImageUrl', uploadedImageUrl);
-      setProfileImage(uploadedImageUrl);
-      onChangeValue('profileImage', uploadedImageUrl);
+      onChangeValue('profileImg', uploadedImageUrl);
       alert('이미지가 성공적으로 업로드되었습니다.');
     },
     onError: (error) => {
@@ -106,10 +105,10 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         value={params.name}
         descriptionTop={'이름'}
         rightIcon={params.name ? <IcoCircleXFilled /> : null}
-        onClickRightIcon={() => onChangeValue('babyName', '')}
+        onClickRightIcon={() => onChangeValue('name', '')}
         type="text"
         onChange={(e) => {
-          onChangeValue('babyName', e.target.value);
+          onChangeValue('name', e.target.value);
         }}
       />
       <BabyInfoValue>
@@ -119,7 +118,7 @@ const BabyInfo: React.FC<BabyInfoType> = ({
             label={'남자아이'}
             variant={params.gender === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
             size={'large'}
-            onClick={() => onChangeValue('sex', 'man')}
+            onClick={() => onChangeValue('gender', 'man')}
           />
           <Button
             label={'여자아이'}
@@ -127,7 +126,7 @@ const BabyInfo: React.FC<BabyInfoType> = ({
               params.gender === 'woman' ? 'Line_Gray_Select' : 'Line_Gray'
             }
             size={'large'}
-            onClick={() => onChangeValue('sex', 'woman')}
+            onClick={() => onChangeValue('gender', 'woman')}
           />
         </SexSelectWrap>
       </BabyInfoValue>

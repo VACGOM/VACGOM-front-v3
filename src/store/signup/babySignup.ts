@@ -16,7 +16,7 @@ const useSignupStore = create<State & Action>()(
       babies: [],
 
       // actions
-      setBabies: (text: string) => {
+      setBabies: (text: ParamsType[]) => {
         set({ babies: text });
         console.log(text);
       },

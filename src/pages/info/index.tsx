@@ -28,8 +28,7 @@ export default function Terms() {
       name: '',
       gender: '',
       birthday: '',
-      profileImg:
-        'images.vacgom.co.kr/baby_profile/0194284f-1d42-7701-b7d9-13ef432e7b53.jpg',
+      profileImg: '',
     },
   ]);
 
@@ -41,8 +40,7 @@ export default function Terms() {
         name: '',
         gender: '',
         birthday: '',
-        profileImg:
-          'images.vacgom.co.kr/baby_profile/0194284f-1d42-7701-b7d9-13ef432e7b53.jpg',
+        profileImg: '',
       },
     ]);
   };
@@ -86,7 +84,7 @@ export default function Terms() {
           onClick={() => {
             // 다음 페이지
             router.push(PATH.nickname);
-            useSignupStore.setState({ babies: params });
+            setBabies(params);
           }}
           twoButtonLabel={'아이 추가하기'}
           twoButtonVariant={'BabyAdd'}
