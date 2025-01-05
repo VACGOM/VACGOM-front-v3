@@ -16,7 +16,7 @@ import {
 } from '@/assets/svg';
 import InputForm from '@/component/atom/InputForm';
 import Button from '@/component/atom/Button/button';
-import { useBabiesImages } from '@/api/babies/babies-images';
+import { useBabiesImages } from '@/api/babies/usePostBabyImages';
 import Image from 'next/image';
 
 export interface BabyInfoType {
@@ -39,16 +39,14 @@ const BabyInfo: React.FC<BabyInfoType> = ({
     setProfileImage(URL.createObjectURL(file));
 
     if (file) {
-      // FormData 생성 및 파일 추가
       const formData = new FormData();
       formData.append('images', file);
 
-      // FormData 내용 확인
+      // FormData 확인
       for (let [key, value] of formData.entries()) {
         console.log(`FormData Key: ${key}, Value:`, value);
       }
 
-      // 서버로 전송
       uploadImage(formData);
     }
   };
@@ -61,11 +59,9 @@ const BabyInfo: React.FC<BabyInfoType> = ({
 
   const { mutate: uploadImage } = useBabiesImages({
     onSuccess: (response) => {
-      // 서버에서 반환된 이미지 URL로 상태 업데이트
-      const uploadedImageUrl = response.imageUrl;
+      const uploadedImageUrl = response.data[0].imageUrl;
       console.log('uploadedImageUrl', uploadedImageUrl);
-      setProfileImage(uploadedImageUrl);
-      onChangeValue('profileImage', uploadedImageUrl);
+      onChangeValue('profileImg', uploadedImageUrl);
       alert('이미지가 성공적으로 업로드되었습니다.');
     },
     onError: (error) => {
@@ -106,13 +102,13 @@ const BabyInfo: React.FC<BabyInfoType> = ({
       </IcoProfileWrap>
       <InputForm
         placeholder="아이의 이름을 입력해주세요"
-        value={params.babyName}
+        value={params.name}
         descriptionTop={'이름'}
-        rightIcon={params.babyName ? <IcoCircleXFilled /> : null}
-        onClickRightIcon={() => onChangeValue('babyName', '')}
+        rightIcon={params.name ? <IcoCircleXFilled /> : null}
+        onClickRightIcon={() => onChangeValue('name', '')}
         type="text"
         onChange={(e) => {
-          onChangeValue('babyName', e.target.value);
+          onChangeValue('name', e.target.value);
         }}
       />
       <BabyInfoValue>
@@ -120,15 +116,17 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         <SexSelectWrap>
           <Button
             label={'남자아이'}
-            variant={params.sex === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
+            variant={params.gender === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
             size={'large'}
-            onClick={() => onChangeValue('sex', 'man')}
+            onClick={() => onChangeValue('gender', 'man')}
           />
           <Button
             label={'여자아이'}
-            variant={params.sex === 'woman' ? 'Line_Gray_Select' : 'Line_Gray'}
+            variant={
+              params.gender === 'woman' ? 'Line_Gray_Select' : 'Line_Gray'
+            }
             size={'large'}
-            onClick={() => onChangeValue('sex', 'woman')}
+            onClick={() => onChangeValue('gender', 'woman')}
           />
         </SexSelectWrap>
       </BabyInfoValue>

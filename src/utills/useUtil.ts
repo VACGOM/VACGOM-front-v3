@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { ParamsType } from '@/types/globalType';
 import secureLocalStorage from 'react-secure-storage';
 import jwt from 'jsonwebtoken';
 import { PATH } from '@/routes/path';
 import { useRouter as useNavigation } from 'next/navigation';
 import { useRouter as useRouter } from 'next/router';
+import { ParamsType } from '@/types/globalTypes';
 
 type UserIdentity = { date: string; sex: string };
 
@@ -45,6 +45,27 @@ export function checkParamsFilled(params: ParamsType): boolean {
   }
   return true;
 }
+
+/**
+ * params 배열의 모든 객체의 모든 필드가 채워져 있는지 확인하는 함수
+ * @param params - BabyInfoParamsType 배열
+ * @returns {boolean} - 모든 필드가 채워져 있으면 true, 하나라도 비어 있으면 false
+ */
+export const checkParamsListFilled = (
+  params: BabyInfoParamsType[],
+): boolean => {
+  // params 배열의 모든 객체가 모든 필드를 채웠는지 확인
+  return params.every((baby) => {
+    return Object.values(baby).every((value) => {
+      if (typeof value === 'string') {
+        return value.trim() !== ''; // 문자열의 경우 공백 확인
+      } else if (value instanceof File) {
+        return value.size > 0; // 파일의 경우 유효한 파일인지 확인
+      }
+      return value !== null && value !== undefined; // null 또는 undefined가 아닌지 확인
+    });
+  });
+};
 
 /**
  * @define 모든 컨디션이 ture 라면 통과, 하나라도 false 이거나 default 이면 불통
