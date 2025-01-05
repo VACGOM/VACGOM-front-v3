@@ -11,8 +11,8 @@ import { axiosInstance } from '@/api/axios';
 import { PATH_API } from '@/api/path';
 
 // API 요청 및 응답 타입 정의
-type UsersResponse = components['schemas']['SignupDto.Response'];
-type UserRequest = components['schemas']['SignupDto.Request'];
+type UsersResponse = components['schemas']['SignupDto.Request.Invitation'];
+type UserRequest = components['schemas']['SignupDto.Request.Invitation'];
 
 export const usePostUsersInvitation = (
   options?: Omit<

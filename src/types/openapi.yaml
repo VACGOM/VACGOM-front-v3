@@ -5,31 +5,10 @@ info:
   description: VACGOM Open API
   version: 3.0.0
 servers:
-  - url: http://api-dev-v2.vacgom.co.kr
-    description: Generated server url
+  - url: https://api-dev-v2.vacgom.co.kr
 security:
   - JWT: []
 paths:
-  "/api/v3/vaccinations":
-    post:
-      tags:
-        - vaccination-controller
-      operationId: createVaccinations
-      requestBody:
-        content:
-          application/json:
-            schema:
-              "$ref": "#/components/schemas/ClientRequest"
-        required: true
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-          content:
-            "*/*":
-              schema:
-                "$ref": "#/components/schemas/ErrorResponse"
   "/api/v3/users":
     get:
       tags:
@@ -94,6 +73,38 @@ paths:
       responses:
         '200':
           description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/users/invitation":
+    post:
+      tags:
+        - 유저 API
+      summary: 회원 가입(초대코드) API
+      description: "\n            엑세스 토큰 필요 X\n        "
+      operationId: signupByInvitationCode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/SignupDto.Request.Invitation"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/SignupDto.Response"
         '400':
           description: Bad Request
           content:
@@ -351,6 +362,51 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/babies":
+    get:
+      tags:
+        - 아기 API
+      summary: 유저 돌봄 아이 리스트 조회 API
+      operationId: getUserBabyDetails
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/BaseResponseListBabyDto.Response.DetailWithAge"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+    post:
+      tags:
+        - 아기 API
+      summary: 유저 돌봄 아이 추가 API
+      operationId: createBaby
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BabyDto.Request.Create"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
   "/api/v3/babies/images":
     post:
       tags:
@@ -361,7 +417,7 @@ paths:
         content:
           multipart/form-data:
             schema:
-              "$ref": "#/components/schemas/UploadImage"
+              "$ref": "#/components/schemas/BabyDto.Request.UploadImage"
       responses:
         '200':
           description: OK
@@ -437,6 +493,82 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/babies/{babyId}":
+    get:
+      tags:
+        - 아기 API
+      summary: 아기 상세정보(나이 포함 여부 선택 가능) 조회 API
+      operationId: getBabyDetail
+      parameters:
+        - name: babyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: withAge
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    oneOf:
+                      - "$ref": "#/components/schemas/BabyDto.Response.Detail"
+                      - "$ref": "#/components/schemas/BabyDto.Response.DetailWithAge"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+    patch:
+      tags:
+        - 아기 API
+      summary: 아기 정보 업데이트 API
+      operationId: updateBaby
+      parameters:
+        - name: babyId
+          in: path
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BabyDto.Request.Update"
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            "*/*":
+              schema:
+                properties:
+                  result:
+                    example: true
+                  message:
+                    example: ''
+                  data:
+                    "$ref": "#/components/schemas/BabyDto.Response.Detail"
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
   "/api/v3/auth/reissue":
     patch:
       tags:
@@ -501,6 +633,48 @@ paths:
             "*/*":
               schema:
                 "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/baby-managers":
+    delete:
+      tags:
+        - 아기 돌보미 API
+      summary: 공동 돌보미 삭제 API
+      operationId: deleteBabyManager
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BabyManagerDto.Request.Delete"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
+  "/api/v3/baby-managers/unlink":
+    delete:
+      tags:
+        - 아기 돌보미 API
+      summary: 돌보미 아이 연결 해제 API
+      operationId: unlinkBaby
+      requestBody:
+        content:
+          application/json:
+            schema:
+              "$ref": "#/components/schemas/BabyManagerDto.Request.Unlink"
+        required: true
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+          content:
+            "*/*":
+              schema:
+                "$ref": "#/components/schemas/ErrorResponse"
 components:
   schemas:
     ErrorResponse:
@@ -518,40 +692,6 @@ components:
           type: string
         details:
           type: object
-    ClientRequest:
-      required:
-        - vaccinations
-      type: object
-      properties:
-        vaccinations:
-          type: array
-          items:
-            "$ref": "#/components/schemas/VaccinationRequest"
-    VaccinationRequest:
-      required:
-        - doseRound
-        - vaccinatedDate
-        - vaccineName
-      type: object
-      properties:
-        vaccineName:
-          type: string
-        doseRound:
-          type: integer
-          format: int64
-        doseDescription:
-          type: string
-        vaccinatedDate:
-          type: string
-          format: date
-        vaccinationFacility:
-          type: string
-        vaccineManufacturer:
-          type: string
-        vaccineProductName:
-          type: string
-        vaccineLotNumber:
-          type: string
     SignupDto.Response:
       required:
         - accessToken
@@ -562,7 +702,22 @@ components:
           type: string
         refreshToken:
           type: string
-    Baby:
+    SignupDto.Request:
+      required:
+        - babies
+        - nickname
+        - registerToken
+      type: object
+      properties:
+        registerToken:
+          type: string
+        nickname:
+          type: string
+        babies:
+          type: array
+          items:
+            "$ref": "#/components/schemas/SignupDto.Request.Baby"
+    SignupDto.Request.Baby:
       required:
         - birthday
         - gender
@@ -581,9 +736,9 @@ components:
         birthday:
           type: string
           format: date
-    SignupDto.Request:
+    SignupDto.Request.Invitation:
       required:
-        - babies
+        - babyIds
         - nickname
         - registerToken
       type: object
@@ -592,10 +747,11 @@ components:
           type: string
         nickname:
           type: string
-        babies:
+        babyIds:
           type: array
           items:
-            "$ref": "#/components/schemas/Baby"
+            type: string
+            format: uuid
     InvitationDto.Request.Get:
       required:
         - invitationCode
@@ -819,7 +975,29 @@ components:
         executionTime:
           type: string
           format: date-time
-    UploadImage:
+    BabyDto.Request.Create:
+      required:
+        - birthday
+        - gender
+        - isAdmin
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        profileImg:
+          type: string
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        birthday:
+          type: string
+          format: date
+        isAdmin:
+          type: boolean
+    BabyDto.Request.UploadImage:
       required:
         - images
       type: object
@@ -875,6 +1053,25 @@ components:
         accessToken:
           type: string
       description: 요청 body
+    BabyDto.Request.Update:
+      required:
+        - birthday
+        - gender
+        - name
+      type: object
+      properties:
+        name:
+          type: string
+        profileImg:
+          type: string
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        birthday:
+          type: string
+          format: date
     TokenDto.Response.Access:
       required:
         - accessToken
@@ -933,6 +1130,81 @@ components:
           type: object
           additionalProperties:
             "$ref": "#/components/schemas/AbstractDailyStatDto"
+    BabyDto.Response.DetailWithAge:
+      required:
+        - age
+        - birthday
+        - gender
+        - id
+        - name
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        name:
+          type: string
+        profileImg:
+          type: string
+        gender:
+          type: string
+          enum:
+            - MALE
+            - FEMALE
+        birthday:
+          type: string
+          format: date
+        age:
+          "$ref": "#/components/schemas/BabyDto.Response.DetailWithAge.BabyAge"
+    BabyDto.Response.DetailWithAge.BabyAge:
+      required:
+        - day
+        - month
+        - year
+      type: object
+      properties:
+        year:
+          type: integer
+          format: int32
+        month:
+          type: integer
+          format: int32
+        day:
+          type: integer
+          format: int32
+    BaseResponseListBabyDto.Response.DetailWithAge:
+      required:
+        - result
+      type: object
+      properties:
+        result:
+          type: boolean
+        message:
+          type: string
+        data:
+          type: array
+          items:
+            "$ref": "#/components/schemas/BabyDto.Response.DetailWithAge"
+    BabyManagerDto.Request.Delete:
+      required:
+        - babyId
+        - managerId
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
+        managerId:
+          type: string
+          format: uuid
+    BabyManagerDto.Request.Unlink:
+      required:
+        - babyId
+      type: object
+      properties:
+        babyId:
+          type: string
+          format: uuid
   securitySchemes:
     JWT:
       type: http

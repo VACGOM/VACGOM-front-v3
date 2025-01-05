@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "svgr": "npx @svgr/cli --icon --no-svgo --no-dimensions --typescript --ext tsx -d src/assets/svg public/svg"
+    "svgr": "npx @svgr/cli --icon --no-svgo --no-dimensions --typescript --ext tsx -d src/assets/svg public/svg",
+    "swagger-typescript-api": "swagger-typescript-api -p https://api-dev-v2.vacgom.co.kr/swagger-ui/index.html -r -o ./types --modular -d --extract-request-body --extract-response-body --extract-response-error --axios"
   },
   "dependencies": {
     "@emotion/css": "^11.11.2",
