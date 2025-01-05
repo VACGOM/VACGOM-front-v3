@@ -1,6 +1,7 @@
 export enum PathType {
   webview = 'webview',
   external = 'external',
+  native = 'native',
 }
 
 export type Path = {
@@ -16,6 +17,10 @@ export const webviewPATH = {
   HOME: {
     path: '/home',
     type: PathType.webview,
+  },
+  HOME2: {
+    path: '/home',
+    type: PathType.native,
   },
   //notion
   NOTION_TERMS: {
