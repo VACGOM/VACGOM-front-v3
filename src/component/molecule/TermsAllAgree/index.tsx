@@ -1,20 +1,16 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import { TemrsDetail, TermsContents, TermsDetailContainer } from './style';
-
-import Link from 'next/link';
 import { IcoCheckBlue, IcoCheckGray, IcoChevron } from '@/assets/svg';
+import { VacLink } from '@/bridge/VacLink';
+import { webviewPATH } from '@/routes/path';
+
 type props = { selected: boolean };
 const TermsAllAgree: React.FC<props> = ({ selected = false }: props) => {
   return (
     <TermsDetailContainer>
       <div className="div">
-        <Link
-          className="div-2"
-          href={
-            'https://been2spring.notion.site/143ea9e50cd9471a856fd1ce52e47ed3'
-          }
-        >
+        <VacLink className="div-2" path={webviewPATH.NOTION_TERMS}>
           <TemrsDetail>
             {selected ? <IcoCheckBlue /> : <IcoCheckGray />}
 
@@ -23,25 +19,15 @@ const TermsAllAgree: React.FC<props> = ({ selected = false }: props) => {
             </TermsContents>
             <IcoChevron />
           </TemrsDetail>
-        </Link>
-        <Link
-          className="div-3"
-          href={
-            'https://been2spring.notion.site/cb723ed5c4dc45a183964c9ff056cd2c'
-          }
-        >
+        </VacLink>
+        <VacLink className="div-3" path={webviewPATH.NOTION_TERMS}>
           <TemrsDetail>
             {selected ? <IcoCheckBlue /> : <IcoCheckGray />}
             <TermsContents>[필수] 예방접종도우미 이용약관</TermsContents>
             <IcoChevron />
           </TemrsDetail>
-        </Link>
-        <Link
-          className="div-4"
-          href={
-            'https://been2spring.notion.site/4c407e7fa55c4866827b7b2301169e57'
-          }
-        >
+        </VacLink>
+        <VacLink className="div-4" path={webviewPATH.NOTION_TERMS}>
           <TemrsDetail>
             {selected ? <IcoCheckBlue /> : <IcoCheckGray />}
             <TermsContents>
@@ -49,7 +35,7 @@ const TermsAllAgree: React.FC<props> = ({ selected = false }: props) => {
             </TermsContents>
             <IcoChevron />
           </TemrsDetail>
-        </Link>
+        </VacLink>
       </div>
     </TermsDetailContainer>
   );
