@@ -116,17 +116,19 @@ const BabyInfo: React.FC<BabyInfoType> = ({
         <SexSelectWrap>
           <Button
             label={'남자아이'}
-            variant={params.gender === 'man' ? 'Line_Gray_Select' : 'Line_Gray'}
+            variant={
+              params.gender === 'MALE' ? 'Line_Gray_Select' : 'Line_Gray'
+            }
             size={'large'}
-            onClick={() => onChangeValue('gender', 'man')}
+            onClick={() => onChangeValue('gender', 'MALE')}
           />
           <Button
             label={'여자아이'}
             variant={
-              params.gender === 'woman' ? 'Line_Gray_Select' : 'Line_Gray'
+              params.gender === 'FEMALE' ? 'Line_Gray_Select' : 'Line_Gray'
             }
             size={'large'}
-            onClick={() => onChangeValue('gender', 'woman')}
+            onClick={() => onChangeValue('gender', 'FEMALE')}
           />
         </SexSelectWrap>
       </BabyInfoValue>

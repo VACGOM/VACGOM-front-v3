@@ -62,7 +62,7 @@ export default function Terms() {
 
     useSignup({
       registerToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM1ODMzMDk2LCJuYmYiOjE3MzU4MzMwOTYsImV4cCI6MTczNTgzMzY5Niwic29jaWFsSWQiOiIzNzc0Mzc1NTE3IiwicHJvdmlkZXIiOiJrYWthbyJ9.BV80hhuHVNxvCnhIgV7hizLwEujY7QsX4pdBQ8Edppo',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU1MjQ5LCJuYmYiOjE3MzYzNTUyNDksImV4cCI6MTczNjM1NTg0OSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTk2NjA3MTMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.M1J67nD6JUjudsxF03-_QutHLVKf-PbpgtoBi6qfk4k',
       nickname,
       babies: transformData,
     });
@@ -87,7 +87,7 @@ export default function Terms() {
         />
         <BottomButtonProvider
           label={'다음'}
-          isActive={nickname}
+          isActive={!!nickname}
           disabled={!nickname}
           onClick={() => {
             validateNickname(nickname) && handleSubmit();
