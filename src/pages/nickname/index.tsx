@@ -19,7 +19,6 @@ export default function Terms() {
   const [nickname, setNickName] = useState<string>('');
   const [error, setError] = useState('');
   const { babies } = useSignupStore((state) => state);
-  console.log(babies);
 
   // yup 스키마 정의
   const nicknameSchema = yup
@@ -44,7 +43,9 @@ export default function Terms() {
   };
 
   const { mutate: useSignup } = usePostUsers({
-    onSuccess: () => {
+    onSuccess: (data) => {
+      localStorage.setItem('accessToken', data.data.accessToken);
+      localStorage.setItem('refreshToken', data.data.refreshToken);
       router.push(PATH.welcome);
     },
     onError: (error) => {
@@ -62,7 +63,7 @@ export default function Terms() {
 
     useSignup({
       registerToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU1MjQ5LCJuYmYiOjE3MzYzNTUyNDksImV4cCI6MTczNjM1NTg0OSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTk2NjA3MTMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.M1J67nD6JUjudsxF03-_QutHLVKf-PbpgtoBi6qfk4k',
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
       nickname,
       babies: transformData,
     });
