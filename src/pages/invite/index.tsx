@@ -1,33 +1,36 @@
 import { useVacBridge } from '@/bridge/VacBridgeProvider';
 import BackHeader from '@/component/molecule/BackHeader';
 import React, { useState } from 'react';
-import { OnChangeValueType, ParamsType } from '@/types/globalTypes';
 import { useRouter } from 'next/navigation';
 import { HeadlineTitle, InputWrap } from '@/pages/invite/style';
 import InputForm from '@/component/atom/InputForm';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
 import { usePostUsersInvitation } from '@/api/users/usePostUsersInvitation';
+import { usePostInvitation } from '@/api/users/usePostInvitation';
+import WarningToastWrap from '@/component/molecule/WorningToastWrap';
 
 export default function Terms() {
   const router = useRouter();
   const bridge = useVacBridge();
   const [inviteCode, setInviteCode] = useState<string>('');
-  const { mutate: useSignupInvite } = usePostUsersInvitation();
+  const [error, setError] = useState<string>('');
+  const { mutate } = usePostInvitation();
 
   const handleSubmit = () => {
-    useSignupInvite(
+    mutate(
       {
-        registerToken: '',
-        nickname: '',
-        babyIds: [inviteCode],
+        invitationCode: inviteCode,
       },
       {
-        onSuccess: () => {
+        onSuccess: (data) => {
+          console.log(data);
+
           router.push(PATH.invite_confirm);
         },
         onError: (error) => {
           console.log(error);
+          setError(error.response.data.errorMessage);
         },
       },
     );
@@ -49,10 +52,11 @@ export default function Terms() {
         />
         <BottomButtonProvider
           label={'다음'}
-          isActive={inviteCode}
+          isActive={!!inviteCode}
           disabled={!inviteCode}
           onClick={handleSubmit}
         />
+        <WarningToastWrap errorMessage={error} setErrorMessage={setError} />
       </InputWrap>
     </>
   );
