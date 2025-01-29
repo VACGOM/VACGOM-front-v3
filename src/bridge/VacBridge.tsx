@@ -10,6 +10,7 @@ import { Path } from '@/routes/path';
 import { DatePickerMessage } from '@/bridge/ipc/message/date';
 import { AccessTokenMessage } from '@/bridge/ipc/message/access-token';
 import { RegisterTokenMessage } from '@/bridge/ipc/message/register-token';
+import { RegisterAuthTokenRequest } from '@/bridge/ipc/message/register-auth-token';
 
 export class VacBridge implements AbstractVacBridge {
   constructor(private vacgomIpc: VacgomAppIpc) {}
@@ -71,5 +72,18 @@ export class VacBridge implements AbstractVacBridge {
     });
 
     return response.data;
+  }
+
+  async saveAuthToken(
+    accessToken: string,
+    refreshToken: string,
+  ): Promise<void> {
+    await this.vacgomIpc.send<RegisterAuthTokenRequest>({
+      type: 'SaveAuthTokenRequest',
+      data: {
+        accessToken,
+        refreshToken,
+      },
+    });
   }
 }

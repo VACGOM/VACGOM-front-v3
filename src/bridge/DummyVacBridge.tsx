@@ -1,5 +1,5 @@
 import { AbstractVacBridge } from '@/bridge/AbstractVacBridge';
-import { Path, PATH, webviewPATH } from '@/routes/path';
+import { Path } from '@/routes/path';
 
 export class DummyVacBridge implements AbstractVacBridge {
   back(): void {
@@ -29,5 +29,13 @@ export class DummyVacBridge implements AbstractVacBridge {
   async getRegisterToken(): Promise<string | null> {
     console.log('getRegisterToken');
     return process.env.NEXT_PUBLIC_REGISTER_TOKEN ?? null;
+  }
+
+  async saveAuthToken(
+    accessToken: string,
+    refreshToken: string,
+  ): Promise<void> {
+    console.log('registerAuthToken');
+    console.log(accessToken, refreshToken);
   }
 }
