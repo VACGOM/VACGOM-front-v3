@@ -6,7 +6,6 @@ import { HeadlineTitle, InputWrap } from '@/pages/invite/style';
 import InputForm from '@/component/atom/InputForm';
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { PATH } from '@/routes/path';
-import { usePostUsersInvitation } from '@/api/users/usePostUsersInvitation';
 import { usePostInvitation } from '@/api/users/usePostInvitation';
 import WarningToastWrap from '@/component/molecule/WorningToastWrap';
 
@@ -24,8 +23,6 @@ export default function Terms() {
       },
       {
         onSuccess: (data) => {
-          console.log(data);
-
           router.push(PATH.invite_confirm);
         },
         onError: (error) => {

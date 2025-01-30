@@ -42,16 +42,7 @@ export default function Terms() {
     }
   };
 
-  const { mutate: useSignup } = usePostUsers({
-    onSuccess: (data) => {
-      localStorage.setItem('accessToken', data.data.accessToken);
-      localStorage.setItem('refreshToken', data.data.refreshToken);
-      router.push(PATH.welcome);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const { mutate: useSignup } = usePostUsers();
 
   const handleSubmit = () => {
     const transformData = babies.map((baby) => ({
@@ -61,12 +52,24 @@ export default function Terms() {
       profileImg: baby.profileImg,
     }));
 
-    useSignup({
-      registerToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
-      nickname,
-      babies: transformData,
-    });
+    useSignup(
+      {
+        registerToken:
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
+        nickname,
+        babies: transformData,
+      },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem('accessToken', data.accessToken);
+          localStorage.setItem('refreshToken', data.refreshToken);
+          router.push(PATH.welcome);
+        },
+        onError: (error) => {
+          setError(error.response.data.error);
+        },
+      },
+    );
   };
 
   return (

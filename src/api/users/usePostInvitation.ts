@@ -10,7 +10,6 @@ import { QUERY_KEY } from '@/api/queryKeys';
 import { axiosInstance } from '@/api/axios';
 import { PATH_API } from '@/api/path';
 
-// API 요청 및 응답 타입 정의
 type invitationResponse = components['schemas']['InvitationDto.Request.Get'];
 type invitationRequest =
   components['schemas']['BaseResponseListBabyDto.Response.Detail'];
@@ -22,7 +21,6 @@ export const usePostInvitation = (
   >,
 ) => {
   const queryClient = useQueryClient();
-  const navigate = useRouter();
 
   return useMutation<invitationResponse, any, invitationRequest>({
     mutationKey: [QUERY_KEY.INVITATION],
@@ -32,7 +30,6 @@ export const usePostInvitation = (
       return response.data as invitationResponse;
     },
     onSuccess: (data) => {
-      console.log('Mutation 성공:', data);
       queryClient.invalidateQueries({ queryKey: [QUERY_KEY.INVITATION] });
     },
     onError: (error) => {
