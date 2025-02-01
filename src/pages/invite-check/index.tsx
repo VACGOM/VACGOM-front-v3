@@ -24,7 +24,9 @@ export default function InviteCheck() {
           label={'우리 아이가 아니에요'}
           size={'large'}
           variant={'OutlineWhite'}
-          onClick={bridge.back}
+          onClick={() => {
+            router.push(PATH.invite);
+          }}
         />
         <Button
           label={'등록하기'}
