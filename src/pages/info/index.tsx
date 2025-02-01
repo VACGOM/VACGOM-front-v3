@@ -56,7 +56,6 @@ export default function Terms() {
           : baby,
       ),
     );
-    console.log(params);
   };
 
   const { mutate } = usePostUsers();
@@ -71,8 +70,9 @@ export default function Terms() {
           key={body.id}
           params={body}
           onChangeValue={(field, value) => onChangeValue(body.id, field, value)}
-          onClickDate={() => {
-            // 브릿지 연결
+          onClickDate={async () => {
+            const date = await bridge.getDate();
+            alert(date);
           }}
         />
       ))}

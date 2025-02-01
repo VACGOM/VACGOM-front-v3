@@ -141,7 +141,7 @@ const BabyInfo: React.FC<BabyInfoType> = ({
           onChange={(e) => {
             onChangeValue('birthday', e.target.value);
           }}
-          // readOnly={true}
+          onClick={onClickDate}
           variant={'white'}
           leftIcon={<IcoCalendar />}
         />
