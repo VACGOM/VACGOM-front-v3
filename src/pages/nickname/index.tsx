@@ -52,15 +52,19 @@ export default function Terms() {
       profileImg: baby.profileImg,
     }));
 
+    const registerToken = bridge.getRegisterToken();
+
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
+
     useSignup(
       {
-        registerToken:
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
+        registerToken: registerToken,
         nickname,
         babies: transformData,
       },
       {
         onSuccess: (data) => {
+          console.log(data);
           localStorage.setItem('accessToken', data.accessToken);
           localStorage.setItem('refreshToken', data.refreshToken);
           router.push(PATH.welcome);

@@ -11,7 +11,11 @@ import {
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { IcoAddBlue } from '@/assets/svg';
 import BabyInfo from '@/component/molecule/BabyInfo';
-import { checkParamsFilled, checkParamsListFilled } from '@/utills/useUtil';
+import {
+  checkParamsFilled,
+  checkParamsListFilled,
+  formatDate,
+} from '@/utills/useUtil';
 import { usePostUsers } from '@/api/users/usePostUsers';
 import { PATH } from '@/routes/path';
 import useSignupStore from '@/store/signup/babySignup';
@@ -56,6 +60,7 @@ export default function Terms() {
           : baby,
       ),
     );
+    console.log(params);
   };
 
   const { mutate } = usePostUsers();
@@ -73,6 +78,7 @@ export default function Terms() {
           onClickDate={async () => {
             const date = await bridge.getDate();
             alert(date);
+            onChangeValue(body.id, 'birthday', formatDate(date));
           }}
         />
       ))}

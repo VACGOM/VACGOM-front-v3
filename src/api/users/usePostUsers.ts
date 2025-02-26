@@ -3,7 +3,7 @@ import {
   useMutation,
   useQueryClient,
 } from '@tanstack/react-query';
-import { components } from '@/types/type';
+import { components, paths } from '@/types/type';
 
 import { useRouter } from 'next/navigation';
 import { QUERY_KEY } from '@/api/queryKeys';
@@ -11,8 +11,10 @@ import { axiosInstance } from '@/api/axios';
 import { PATH_API } from '@/api/path';
 
 // API 요청 및 응답 타입 정의
-type UsersResponse = components['schemas']['SignupDto.Response'];
-type UserRequest = components['schemas']['SignupDto.Request'];
+type UsersResponse =
+  paths['/api/v3/users']['post']['responses']['200']['content']['*/*']['data'];
+type UserRequest =
+  paths['/api/v3/users']['post']['requestBody']['content']['application/json'];
 
 export const usePostUsers = (
   options?: Omit<
