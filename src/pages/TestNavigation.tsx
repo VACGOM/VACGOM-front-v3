@@ -41,8 +41,6 @@ export function TestNavigation() {
       <button
         onClick={async () => {
           const date = await bridge.getDate();
-          console.log(date);
-
           alert(date);
         }}
       >

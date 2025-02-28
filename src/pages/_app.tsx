@@ -7,6 +7,9 @@ import { Global, ThemeProvider } from '@emotion/react';
 import GlobalStyle from '@/styles/globalStyles';
 import { theme } from '@/styles/theme';
 import ReactQueryProviders from '@/api/react-query-provider';
+import { LocalStorage } from '@/utills/useUtil';
+import { PATH } from '@/routes/path';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter(); // Initialize router
@@ -14,7 +17,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   // const checkToken = () => {
   //   const accessToken = LocalStorage.getItem('accessToken');
   //   if (!accessToken) {
-  //     router.push(PATH.root); // Use router.push instead of window.location.href
+  //     router.push(PATH.HOME);
   //   }
   // };
   //

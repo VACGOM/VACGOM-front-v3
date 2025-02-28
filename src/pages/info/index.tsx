@@ -11,7 +11,11 @@ import {
 import BottomButtonProvider from '@/component/molecule/BottomButtonProvider';
 import { IcoAddBlue } from '@/assets/svg';
 import BabyInfo from '@/component/molecule/BabyInfo';
-import { checkParamsFilled, checkParamsListFilled } from '@/utills/useUtil';
+import {
+  checkParamsFilled,
+  checkParamsListFilled,
+  formatDate,
+} from '@/utills/useUtil';
 import { usePostUsers } from '@/api/users/usePostUsers';
 import { PATH } from '@/routes/path';
 import useSignupStore from '@/store/signup/babySignup';
@@ -36,7 +40,7 @@ export default function Terms() {
     setParams((prevState) => [
       ...prevState,
       {
-        id: prevState.length + 1, // 새로운 ID
+        id: prevState.length + 1,
         name: '',
         gender: '',
         birthday: '',
@@ -71,8 +75,10 @@ export default function Terms() {
           key={body.id}
           params={body}
           onChangeValue={(field, value) => onChangeValue(body.id, field, value)}
-          onClickDate={() => {
-            // 브릿지 연결
+          onClickDate={async () => {
+            const date = await bridge.getDate();
+            alert(date);
+            onChangeValue(body.id, 'birthday', formatDate(date));
           }}
         />
       ))}

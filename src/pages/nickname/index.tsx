@@ -19,7 +19,6 @@ export default function Terms() {
   const [nickname, setNickName] = useState<string>('');
   const [error, setError] = useState('');
   const { babies } = useSignupStore((state) => state);
-  console.log(babies);
 
   // yup 스키마 정의
   const nicknameSchema = yup
@@ -32,25 +31,18 @@ export default function Terms() {
 
   const validateNickname = (nickname: string) => {
     try {
-      nicknameSchema.validateSync(nickname); // 유효성 검사
-      setError(''); // 에러 초기화
+      nicknameSchema.validateSync(nickname);
+      setError('');
       return true;
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setError(err.message); // 에러 메시지 설정
+        setError(err.message);
       }
       return false;
     }
   };
 
-  const { mutate: useSignup } = usePostUsers({
-    onSuccess: () => {
-      router.push(PATH.welcome);
-    },
-    onError: (error) => {
-      console.log(error);
-    },
-  });
+  const { mutate: useSignup } = usePostUsers();
 
   const handleSubmit = () => {
     const transformData = babies.map((baby) => ({
@@ -59,13 +51,27 @@ export default function Terms() {
       birthday: baby.birthday,
       profileImg: baby.profileImg,
     }));
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
 
-    useSignup({
-      registerToken:
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM1ODMzMDk2LCJuYmYiOjE3MzU4MzMwOTYsImV4cCI6MTczNTgzMzY5Niwic29jaWFsSWQiOiIzNzc0Mzc1NTE3IiwicHJvdmlkZXIiOiJrYWthbyJ9.BV80hhuHVNxvCnhIgV7hizLwEujY7QsX4pdBQ8Edppo',
-      nickname,
-      babies: transformData,
-    });
+    const registerToken = bridge.getRegisterToken();
+
+    useSignup(
+      {
+        registerToken: registerToken,
+        nickname,
+        babies: transformData,
+      },
+      {
+        onSuccess: (data) => {
+          localStorage.setItem('accessToken', data.accessToken);
+          localStorage.setItem('refreshToken', data.refreshToken);
+          router.push(PATH.welcome);
+        },
+        onError: (error) => {
+          setError(error.response.data.error);
+        },
+      },
+    );
   };
 
   return (
@@ -87,7 +93,7 @@ export default function Terms() {
         />
         <BottomButtonProvider
           label={'다음'}
-          isActive={nickname}
+          isActive={!!nickname}
           disabled={!nickname}
           onClick={() => {
             validateNickname(nickname) && handleSubmit();

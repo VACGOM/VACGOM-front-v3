@@ -30,12 +30,11 @@ const TIMEOUT_TIME = 10_000;
 //   },
 //   (error) =>
 //     // 요청 전 에러 처리
-//     // add error handling before sending the request
 //     Promise.reject(
 //       (error.response && error.response.data) || 'Something went wrong',
 //     ),
 // );
-//
+
 // axiosInstance.interceptors.response.use(
 //   (response) => response,
 //   async (error) => {
