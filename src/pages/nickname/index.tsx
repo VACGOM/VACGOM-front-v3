@@ -31,12 +31,12 @@ export default function Terms() {
 
   const validateNickname = (nickname: string) => {
     try {
-      nicknameSchema.validateSync(nickname); // 유효성 검사
-      setError(''); // 에러 초기화
+      nicknameSchema.validateSync(nickname);
+      setError('');
       return true;
     } catch (err) {
       if (err instanceof yup.ValidationError) {
-        setError(err.message); // 에러 메시지 설정
+        setError(err.message);
       }
       return false;
     }
@@ -51,10 +51,9 @@ export default function Terms() {
       birthday: baby.birthday,
       profileImg: baby.profileImg,
     }));
+    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
 
     const registerToken = bridge.getRegisterToken();
-
-    // 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOm51bGwsInN1YiI6IlJFR0lTVEVSX1RPS0VOIiwiaXNzIjoidmFjZ29tIiwiaWF0IjoxNzM2MzU2OTI1LCJuYmYiOjE3MzYzNTY5MjUsImV4cCI6MTczNjM1NzUyNSwic29jaWFsSWQiOiJ0ZXN0U29jaWFsSWQtNTg1NzQyMjMxIiwicHJvdmlkZXIiOiJLQUtBTyJ9.ni-nVVY1gxIXNgAAlgFHT5h_Yuk6m6Bb3mv_Ucl1eSw',
 
     useSignup(
       {
@@ -64,7 +63,6 @@ export default function Terms() {
       },
       {
         onSuccess: (data) => {
-          console.log(data);
           localStorage.setItem('accessToken', data.accessToken);
           localStorage.setItem('refreshToken', data.refreshToken);
           router.push(PATH.welcome);

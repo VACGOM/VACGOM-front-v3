@@ -40,7 +40,7 @@ export default function Terms() {
     setParams((prevState) => [
       ...prevState,
       {
-        id: prevState.length + 1, // 새로운 ID
+        id: prevState.length + 1,
         name: '',
         gender: '',
         birthday: '',
