@@ -1,3 +1,4 @@
+export { default as IcoInfoCheck } from './IcoInfoCheck';
 export { default as Favicon } from './Favicon';
 export { default as IcoProfileNull } from './IcoProfileNull';
 export { default as IcoProfileEdit } from './IcoProfileEdit';
