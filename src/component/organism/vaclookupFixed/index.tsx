@@ -14,11 +14,11 @@ const VacLookupFixed: React.FC<VacLookupFixedProps> = ({
   handleSectionChange,
   messages,
 }) => {
-  const sectionTexts = ['필수예방접종', '국가예방접종', '기타예방접종'];
+  const sectionTexts = ['주간', '월간', '기간'];
 
   return (
     <>
-      <MainHeader title="백신정보" />
+      <MainHeader title="육아 통계" />
       <SectionHeader
         sections={sectionTexts}
         onSectionChange={handleSectionChange}

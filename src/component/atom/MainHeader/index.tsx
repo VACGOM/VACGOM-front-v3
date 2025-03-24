@@ -1,16 +1,15 @@
 import React from 'react';
 import { HeaderContainer, Title } from './styles';
 import { MainHeaderType } from '../atomType';
-import { Images } from '@globalStyles';
-import Image from 'next/image';
 import Link from 'next/link';
+import { IcoNotification } from '@/assets/svg';
 
-const MainHeader: React.FC<MainHeaderType> = ({ title, customStyle }) => {
+const MainHeader: React.FC<MainHeaderType> = ({ title }) => {
   return (
-    <HeaderContainer css={customStyle}>
+    <HeaderContainer>
       <Title>{title}</Title>
       <Link href="/alert">
-        <Image src={Images.notification} alt="Notification" style={{ cursor: 'pointer' }} />
+        <IcoNotification style={{ cursor: 'pointer' }} />
       </Link>
     </HeaderContainer>
   );
